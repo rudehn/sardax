@@ -1,0 +1,18 @@
+[package]
+name = "rust-roguelike"
+version = "0.1.0"
+edition = "2021"
+
+# Optimize develop builds
+[profile.dev.package."*"]
+opt-level = 2
+
+[dependencies]
+rltk = { git = "https://github.com/amethyst/bracket-lib", features = ["serde"] }  # 0.8.7 has broken WASM support
+specs = { version = "0.20", features = ["serde"] }
+specs-derive = "0.4.1"
+serde= { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.137"
+lazy_static = "1.4.0"
+regex = "1.3.6"
+petgraph = "0.7.1"
