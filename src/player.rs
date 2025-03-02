@@ -5,8 +5,8 @@ use super::{Position, Player, Viewshed, State, Map, RunState, Attributes, WantsT
     WantsToPickupItem, TileType, HungerClock, HungerState,
     EntityMoved, Door, BlocksTile, BlocksVisibility, Renderable, Pools, Faction,
     raws::Reaction, Vendor, VendorMode, WantsToCastSpell, Target, Equipped, Weapon,
-    WantsToShoot, Name, InBackpack, Initiative, DEFAULT_ACTION_COST, MOVE_ACTION_COST};
-use super::systems::ai::{apply_attack_action_cost, apply_generic_action_cost, apply_move_action_cost};
+    WantsToShoot, Name, InBackpack, Initiative};
+use super::systems::ai::{apply_generic_action_cost, apply_move_action_cost};
 
 fn get_player_target_list(ecs : &mut World) -> Vec<(f32,Entity)> {
     let mut possible_targets : Vec<(f32,Entity)> = Vec::new();
@@ -128,7 +128,7 @@ pub fn try_move_player(delta_x: i32, delta_y: i32, ecs: &mut World) -> RunState 
     let factions = ecs.read_storage::<Faction>();
     let vendors = ecs.read_storage::<Vendor>();
     let mut initiatives = ecs.write_storage::<Initiative>();
-    let mut initiative = initiatives.get_mut(*player_entity).unwrap();
+    let initiative = initiatives.get_mut(*player_entity).unwrap();
     let mut result = RunState::AwaitingInput;
 
     let mut swap_entities : Vec<(Entity, i32, i32)> = Vec::new();
@@ -283,7 +283,7 @@ fn get_item(ecs: &mut World) {
     let positions = ecs.read_storage::<Position>();
     let mut initiatives = ecs.write_storage::<Initiative>();
 
-    let mut initiative = initiatives.get_mut(*player_entity).unwrap();
+    let initiative = initiatives.get_mut(*player_entity).unwrap();
     apply_generic_action_cost(initiative);
 
     let mut target_item : Option<Entity> = None;
@@ -309,7 +309,7 @@ fn skip_turn(ecs: &mut World) -> RunState {
     let mut initiatives = ecs.write_storage::<Initiative>();
     let worldmap_resource = ecs.fetch::<Map>();
 
-    let mut initiative = initiatives.get_mut(*player_entity).unwrap();
+    let initiative = initiatives.get_mut(*player_entity).unwrap();
     apply_generic_action_cost(initiative);
 
     let mut can_heal = true;

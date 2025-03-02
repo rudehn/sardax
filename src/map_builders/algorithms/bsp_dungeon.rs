@@ -1,4 +1,4 @@
-use crate::map_builders::{InitialMapBuilder, BuilderMap, TileType};
+use crate::map_builders::{InitialMapBuilder, BuilderMap};
 use rltk::Rect;
 use petgraph::Graph;
 use std::cmp::{max, min, Ordering};

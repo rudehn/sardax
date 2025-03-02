@@ -1,6 +1,5 @@
 use specs::prelude::*;
 use crate::{MyTurn, Paralysis, Initiative, RunState, StatusEffect, effects::add_effect, effects::EffectType, effects::Targets};
-use super::initiative_system::apply_generic_action_cost;
 use std::collections::HashSet;
 
 pub struct TurnStatusSystem {}
@@ -16,7 +15,7 @@ impl<'a> System<'a> for TurnStatusSystem {
                     );
 
     fn run(&mut self, data : Self::SystemData) {
-        let (mut turns, paralysis, entities, runstate, statuses, mut initiatives) = data;
+        let (mut turns, paralysis, entities, runstate, statuses, initiatives) = data;
 
         if *runstate != RunState::Ticking { return; }
 

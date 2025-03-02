@@ -10,32 +10,14 @@ mod common;
 mod prefab_builder;
 
 use utility::distant_exit::DistantExit;
-use simple_map::SimpleMapBuilder;
 use algorithms::bsp_dungeon::BspDungeonBuilder;
-use algorithms::cellular_automata::CellularAutomataBuilder;
-use algorithms::drunkard::DrunkardsWalkBuilder;
-use algorithms::maze::MazeBuilder;
-use algorithms::dla::DLABuilder;
-use algorithms::voronoi::VoronoiCellBuilder;
-use algorithms::voronoi_spawning::VoronoiSpawning;
-use prefab_builder::PrefabBuilder;
-use utility::room_based_spawner::RoomBasedSpawner;
-use utility::room_based_stairs::RoomBasedStairs;
-use utility::starting_points::{AreaStartingPosition, DungeonEntranceSpawner, RoomBasedStartingPosition, XStart, YStart};
-use utility::cull_unreachable::CullUnreachable;
+use utility::starting_points::{AreaStartingPosition, DungeonEntranceSpawner, XStart, YStart};
 use common::*;
 use utility::room_exploder::RoomExploder;
-use utility::room_corner_rounding::RoomCornerRounder;
-use utility::rooms_corridors_dogleg::DoglegCorridors;
-use utility::rooms_corridors_bsp::BspCorridors;
-use utility::room_sorter::{RoomSorter, RoomSort};
 use utility::room_draw::RoomDrawer;
 use utility::rooms_corridors_nearest::NearestCorridors;
-use utility::rooms_corridors_lines::StraightLineCorridors;
-use utility::room_corridor_spawner::CorridorSpawner;
 use utility::door_placement::DoorPlacement;
 use utility::amulet_spawner::AmuletSpawner;
-use utility::area_ending_point::*;
 
 pub struct BuilderMap {
     pub spawn_list : Vec<(usize, String)>,

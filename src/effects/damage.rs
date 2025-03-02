@@ -65,7 +65,7 @@ pub fn death(ecs: &mut World, effect: &EffectSpawner, target : Entity) {
             }
 
             if gold_gain != 0.0 {
-                let mut player_stats = pools.get_mut(source).unwrap();
+                let player_stats = pools.get_mut(source).unwrap();
                 player_stats.gold += gold_gain;
             }
         }

@@ -39,7 +39,7 @@ fn get_tile_glyph_default(idx: usize, map : &Map) -> (rltk::FontCharType, RGB, R
     let glyph;
     let fg;
     // let mut bg = RGB::from_f32(0., 0., 0.);
-    let mut bg = RGB::from_f32(0.1, 0.1, 0.1);
+    let bg = RGB::from_f32(0.1, 0.1, 0.1);
 
     match map.tiles[idx] {
         TileType::Floor => { 

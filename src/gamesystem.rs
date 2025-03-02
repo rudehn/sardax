@@ -1,4 +1,3 @@
-use specs::prelude::Entity;
 use super::{Skill, Skills};
 
 pub fn attr_bonus(value: i32) -> i32 {

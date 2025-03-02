@@ -1,6 +1,6 @@
 use serde::{Deserialize};
 use super::Renderable;
-use crate::components::{AttackEffect, EffectValues};
+use crate::components::AttackEffect;
 use std::collections::HashMap;
 
 #[derive(Deserialize, Debug)]

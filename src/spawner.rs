@@ -7,7 +7,6 @@ use super::{Pools, Pool, Player, Renderable, Name, Position, Viewshed,
     DEFAULT_ENERGY_GAIN};
 use specs::saveload::{MarkedBuilder, SimpleMarker};
 use std::collections::HashMap;
-use crate::attr_bonus;
 
 /// Spawns the player and returns his/her entity object.
 pub fn player(ecs : &mut World, player_x : i32, player_y : i32) -> Entity {
