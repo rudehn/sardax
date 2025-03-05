@@ -1,12 +1,6 @@
 {
 "spawn_table" : [
-   
-    { "name" : "Jelly", "weight" : 1000, "min_depth" : 1, "max_depth" : 25},
-    { "name" : "Kobold", "weight" : 10, "min_depth" : 1, "max_depth" : 25},
-    { "name" : "Goblin", "weight" : 10, "min_depth" : 1, "max_depth" : 25},
-    { "name" : "Orc", "weight" : 1, "min_depth" : 1, "max_depth" : 25},
-    { "name" : "Giant Spider", "weight" : 100, "min_depth" : 1, "max_depth" : 25},
-    { "name" : "Ogre", "weight" : 1, "min_depth" : 3, "max_depth" : 25}
+    { "name" : "Goblin", "weight" : 10, "min_depth" : 1, "max_depth" : 25}
 ],
 
 "loot_tables" : [
@@ -259,25 +253,6 @@
     },
 
     {
-        "name" : "Rusty Longsword",
-        "renderable": {
-            "glyph" : "/",
-            "fg" : "#BB77BB",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "weapon" : {
-            "range" : "melee",
-            "base_damage" : "1d6-1",
-            "hit_bonus" : -10
-        },
-        "weight_lbs" : 3.0,
-        "base_value" : 10.0,
-        "initiative_penalty" : 2,
-        "vendor_category" : "junk"
-    },
-
-    {
         "name" : "Dagger",
         "renderable": {
             "glyph" : "/",
@@ -292,7 +267,6 @@
         },
         "weight_lbs" : 1.0,
         "base_value" : 2.0,
-        "initiative_penalty" : 0,
         "vendor_category" : "weapon"
     },
 
@@ -311,7 +285,6 @@
         },
         "weight_lbs" : 2.0,
         "base_value" : 5.0,
-        "initiative_penalty" : 1,
         "vendor_category" : "weapon"
     },
 
@@ -330,7 +303,6 @@
         },
         "weight_lbs" : 2.0,
         "base_value" : 5.0,
-        "initiative_penalty" : 1,
         "vendor_category" : "weapon"
     },
 
@@ -349,7 +321,6 @@
         },
         "weight_lbs" : 2.0,
         "base_value" : 10.0,
-        "initiative_penalty" : 1,
         "vendor_category" : "weapon"
     },
 
@@ -368,7 +339,6 @@
         },
         "weight_lbs" : 3.0,
         "base_value" : 15.0,
-        "initiative_penalty" : 2,
         "vendor_category" : "weapon"
     },
 
@@ -387,7 +357,6 @@
         },
         "weight_lbs" : 2.5,
         "base_value" : 25.0,
-        "initiative_penalty" : 1,
         "vendor_category" : "weapon"
     },
 
@@ -406,7 +375,6 @@
         },
         "weight_lbs" : 4.0,
         "base_value" : 10.0,
-        "initiative_penalty" : 2,
         "vendor_category" : "weapon"
     },
 
@@ -425,7 +393,6 @@
         },
         "weight_lbs" : 7.0,
         "base_value" : 30.0,
-        "initiative_penalty" : 2,
         "vendor_category" : "weapon"
     },
     {
@@ -443,7 +410,6 @@
         },
         "weight_lbs" : 10.0,
         "base_value" : 0.2,
-        "initiative_penalty" : 2,
         "vendor_category" : "weapon"
     },
 
@@ -461,7 +427,6 @@
         },
         "weight_lbs" : 6.0,
         "base_value" : 10.0,
-        "initiative_penalty" : 0.6,
         "vendor_category" : "armor"
     },
 
@@ -479,7 +444,6 @@
         },
         "weight_lbs" : 45.0,
         "base_value" : 30.0,
-        "initiative_penalty" : 1.0,
         "vendor_category" : "armor"
     },
 
@@ -497,7 +461,6 @@
         },
         "weight_lbs" : 1.0,
         "base_value" : 1.0,
-        "initiative_penalty" : 0.1,
         "vendor_category" : "junk"
     },
 
@@ -515,63 +478,7 @@
         },
         "weight_lbs" : 1.0,
         "base_value" : 1.0,
-        "initiative_penalty" : 0.1,
         "vendor_category" : "junk"
-    },
-
-    {
-        "name" : "Old Boots",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#FF9999",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Feet",
-            "armor_class" : 0.1
-        },
-        "weight_lbs" : 1.0,
-        "base_value" : 1.0,
-        "initiative_penalty" : 0.1,
-        "vendor_category" : "junk"
-    },
-
-
-    {
-        "name" : "Cloth Tunic",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Torso",
-            "armor_class" : 0.1
-        },
-        "weight_lbs" : 1.0,
-        "base_value" : 1.0,
-        "initiative_penalty" : 0.1,
-        "vendor_category" : "clothes"
-    },
-
-    {
-        "name" : "Cloth Pants",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FFFF",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Legs",
-            "armor_class" : 0.1
-        },
-        "weight_lbs" : 1.0,
-        "base_value" : 1.0,
-        "initiative_penalty" : 0.1,
-        "vendor_category" : "clothes"
     },
 
     {
@@ -588,7 +495,6 @@
         },
         "weight_lbs" : 2.5,
         "base_value" : 10.0,
-        "initiative_penalty" : 0.25,
         "vendor_category" : "clothes"
     },
 
@@ -606,7 +512,6 @@
         },
         "weight_lbs" : 10.0,
         "base_value" : 50.0,
-        "initiative_penalty" : 0.3,
         "vendor_category" : "clothes"
     },
 
@@ -624,7 +529,6 @@
         },
         "weight_lbs" : 10.0,
         "base_value" : 50.0,
-        "initiative_penalty" : 0.1,
         "vendor_category" : "clothes"
     },
 
@@ -642,25 +546,6 @@
         },
         "weight_lbs" : 20.0,
         "base_value" : 100.0,
-        "initiative_penalty" : 0.5,
-        "vendor_category" : "clothes"
-    },
-
-    {
-        "name" : "Slippers",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#FF9999",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Feet",
-            "armor_class" : 0.1
-        },
-        "weight_lbs" : 1.0,
-        "base_value" : 1.0,
-        "initiative_penalty" : 0.1,
         "vendor_category" : "clothes"
     },
 
@@ -678,7 +563,6 @@
         },
         "weight_lbs" : 4.0,
         "base_value" : 10.0,
-        "initiative_penalty" : 0.4,
         "vendor_category" : "clothes"
     },
 
@@ -696,27 +580,9 @@
         },
         "weight_lbs" : 20.0,
         "base_value" : 50.0,
-        "initiative_penalty" : 1.0,
         "vendor_category" : "armor"
     },
 
-    {
-        "name" : "Drow Chain",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Torso",
-            "armor_class" : 3.0
-        },
-        "weight_lbs" : 5.0,
-        "base_value" : 50.0,
-        "initiative_penalty" : 0.0,
-        "vendor_category" : "armor"
-    },
 
     {
         "name" : "Breastplate",
@@ -732,43 +598,6 @@
         },
         "weight_lbs" : 25.0,
         "base_value" : 100.0,
-        "initiative_penalty" : 2.0,
-        "vendor_category" : "armor"
-    },
-
-    {
-        "name" : "Dwarf-Steel Shirt",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Torso",
-            "armor_class" : 3.0
-        },
-        "weight_lbs" : 5.0,
-        "base_value" : 500.0,
-        "initiative_penalty" : 0.0,
-        "vendor_category" : "armor"
-    },
-
-    {
-        "name" : "Cloth Cap",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Head",
-            "armor_class" : 0.2
-        },
-        "weight_lbs" : 0.25,
-        "base_value" : 5.0,
-        "initiative_penalty" : 0.1,
         "vendor_category" : "armor"
     },
 
@@ -786,25 +615,6 @@
         },
         "weight_lbs" : 1.5,
         "base_value" : 5.0,
-        "initiative_penalty" : 0.15,
-        "vendor_category" : "armor"
-    },
-
-    {
-        "name" : "Chain Coif",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Head",
-            "armor_class" : 1.0
-        },
-        "weight_lbs" : 5.0,
-        "base_value" : 20.0,
-        "initiative_penalty" : 0.5,
         "vendor_category" : "armor"
     },
 
@@ -822,7 +632,6 @@
         },
         "weight_lbs" : 15.0,
         "base_value" : 100.0,
-        "initiative_penalty" : 1.0,
         "vendor_category" : "armor"
     },
 
@@ -840,26 +649,7 @@
         },
         "weight_lbs" : 1.0,
         "base_value" : 5.0,
-        "initiative_penalty" : 0.1,
         "vendor_category" : "clothes"
-    },
-
-    {
-        "name" : "Chain Boots",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Feet",
-            "armor_class" : 0.3
-        },
-        "weight_lbs" : 3.0,
-        "base_value" : 10.0,
-        "initiative_penalty" : 0.25,
-        "vendor_category" : "armor"
     },
 
     {
@@ -876,7 +666,6 @@
         },
         "weight_lbs" : 2.0,
         "base_value" : 10.0,
-        "initiative_penalty" : 0.1,
         "vendor_category" : "armor"
     },
 
@@ -894,7 +683,6 @@
         },
         "weight_lbs" : 5.0,
         "base_value" : 10.0,
-        "initiative_penalty" : 0.4,
         "vendor_category" : "armor"
     },
 
@@ -912,7 +700,6 @@
         },
         "weight_lbs" : 0.5,
         "base_value" : 1.0,
-        "initiative_penalty" : 0.1,
         "vendor_category" : "clothes"
     },
 
@@ -930,7 +717,6 @@
         },
         "weight_lbs" : 1.0,
         "base_value" : 1.0,
-        "initiative_penalty" : 0.1,
         "vendor_category" : "clothes"
     },
 
@@ -948,7 +734,6 @@
         },
         "weight_lbs" : 2.0,
         "base_value" : 10.0,
-        "initiative_penalty" : 0.2,
         "vendor_category" : "clothes"
     },
 
@@ -966,7 +751,6 @@
         },
         "weight_lbs" : 5.0,
         "base_value" : 10.0,
-        "initiative_penalty" : 0.3,
         "vendor_category" : "clothes"
     },
     {
@@ -1050,40 +834,6 @@
 
 "mobs" : [
     {
-        "name" : "Jelly",
-        "renderable": {
-            "glyph" : "j",
-            "fg" : "#FFFF00",
-            "bg" : "#000000",
-            "order" : 1
-        },
-        "blocks_tile" : true,
-        "vision_range" : 12,
-        "movement" : "random",
-        "health": "1d8+2",
-        "attributes": {
-            "attack_action_mult": 0.5,
-            "move_action_mult": 1
-        },
-        "natural" : {
-            "attacks" : [
-                { 
-                    "name" : "engulf",
-                    "hit_bonus" : 0,
-                    "damage" : "1d4",
-                    "on_hit": {
-                        "proc_chance": 1,
-                        "proc_target": "enemy",
-                        "proc_effects": {
-                            "slow" :  {}
-                        }
-                    }
-                }
-            ]
-        },
-        "faction" : "Enemies"
-    },
-    {
         "name" : "Goblin",
         "renderable": {
             "glyph" : "g",
@@ -1100,85 +850,6 @@
             "move_action_mult": 1.0
         },
         "equipped" : ["Dagger"],
-        "faction" : "Enemies"
-    },
-    {
-        "name" : "Orc",
-        "renderable": {
-            "glyph" : "o",
-            "fg" : "#FFFF00",
-            "bg" : "#000000",
-            "order" : 1
-        },
-        "blocks_tile" : true,
-        "vision_range" : 12,
-        "movement" : "random",
-        "health": "2d8+6",
-        "attributes": {},
-        "equipped" : [ "Greataxe", "Leather Armor", "Leather Boots", "Leather Gloves", "Leather Pants", "Leather Cap" ],
-        "faction" : "Enemies"
-    },
-    {
-        "name" : "Giant Spider",
-        "renderable": {
-            "glyph" : "s",
-            "fg" : "#FF0000",
-            "bg" : "#000000",
-            "order" : 1
-        },
-        "blocks_tile" : true,
-        "vision_range" : 12,
-        "movement" : "static",
-        "health": "4d10+4",
-        "attributes": {},
-        "natural" : {
-            "armor_class" : 14,
-            "attacks" : [
-                { "name" : "bite", "hit_bonus" : 1, "damage" : "1d8+3" }
-            ]
-        },
-        "abilities" : [
-            { "spell" : "Web", "chance" : 0.2, "range" : 6.0, "min_range" : 3.0 }
-        ],
-        "faction" : "Enemies"
-    },
-    {
-        "name" : "Ogre",
-        "renderable": {
-            "glyph" : "O",
-            "fg" : "#00FFFF",
-            "bg" : "#000000",
-            "order" : 1
-        },
-        "blocks_tile" : true,
-        "vision_range" : 12,
-        "movement" : "random",
-        "health": "7d10+21",
-        "attributes": {},
-        "equipped" : [ "Greatclub", "Leather Armor", "Leather Boots", "Leather Gloves", "Leather Pants", "Leather Cap" ],
-        "faction" : "Enemies"
-    },
-    {
-        "name" : "Troll",
-        "renderable": {
-            "glyph" : "T",
-            "fg" : "#00FFFF",
-            "bg" : "#000000",
-            "order" : 1
-        },
-        "blocks_tile" : true,
-        "vision_range" : 12,
-        "movement" : "random",
-        "health": "8d10+40",
-        "attributes": {},
-        "natural" : {
-            "armor_class" : 15,
-            "attacks" : [
-                { "name" : "bite", "hit_bonus" : 0, "damage" : "1d6" },
-                { "name" : "claw", "hit_bonus" : 0, "damage" : "2d6" },
-                { "name" : "claw", "hit_bonus" : 0, "damage" : "2d6" }
-            ]
-        },
         "faction" : "Enemies"
     }
 ],
@@ -1251,38 +922,6 @@
         "door_open" : true
     },
 
-    {
-        "name" : "Keg",
-        "renderable": {
-            "glyph" : "φ",
-            "fg" : "#AAAAAA",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Table",
-        "renderable": {
-            "glyph" : "╦",
-            "fg" : "#AAAAAA",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Chair",
-        "renderable": {
-            "glyph" : "└",
-            "fg" : "#AAAAAA",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
 
     {
         "name" : "Altar",
@@ -1316,105 +955,6 @@
         "renderable": {
             "glyph" : "╔",
             "fg" : "#AAAAAA",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Water Trough",
-        "renderable": {
-            "glyph" : "•",
-            "fg" : "#5555FF",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Weapon Rack",
-        "renderable": {
-            "glyph" : "π",
-            "fg" : "#FFD700",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Armor Stand",
-        "renderable": {
-            "glyph" : "⌠",
-            "fg" : "#FFFFFF",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Chemistry Set",
-        "renderable": {
-            "glyph" : "δ",
-            "fg" : "#00FFFF",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Dead Thing",
-        "renderable": {
-            "glyph" : "☻",
-            "fg" : "#AA0000",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Cabinet",
-        "renderable": {
-            "glyph" : "∩",
-            "fg" : "#805A46",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Bed",
-        "renderable": {
-            "glyph" : "8",
-            "fg" : "#805A46",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Loom",
-        "renderable": {
-            "glyph" : "≡",
-            "fg" : "#805A46",
-            "bg" : "#000000",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Hide Rack",
-        "renderable": {
-            "glyph" : "π",
-            "fg" : "#805A46",
             "bg" : "#000000",
             "order" : 2
         },
@@ -1475,7 +1015,7 @@
 
     {
         "name" : "Web",
-        "mana_cost" : 2,
+        "mana_cost" : 5,
         "effects" : {
             "ranged" : {"amount": 6},
             "slow" : {},
@@ -1486,7 +1026,7 @@
 
     {
         "name" : "Acid Breath",
-        "mana_cost" : 2,
+        "mana_cost" : 6,
         "effects" : {
             "ranged" : {"amount": 6},
             "damage" : {"amount": 10},
@@ -1519,13 +1059,6 @@
             "single_activation" : {},
             "target_self" : {}
         }
-    }
-],
-
-"weapon_traits" : [
-    {
-        "name" : "Paralyzing",
-        "effects" : { "paralysis" : {"duration": 2} }
     }
 ]
 }

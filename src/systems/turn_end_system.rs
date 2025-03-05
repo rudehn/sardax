@@ -53,7 +53,6 @@ impl<'a> System<'a> for TurnEndSystem {
                     }
                 }
             }
-
         }
 
 
