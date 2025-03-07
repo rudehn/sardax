@@ -86,18 +86,6 @@ fn draw_stats(ecs: &World, draw_batch: &mut DrawBatch, player_entity: &Entity) {
     );
 }
 
-fn initiative_weight(ecs: &World, draw_batch: &mut DrawBatch, player_entity: &Entity) {
-    let black = RGB::named(rltk::BLACK);
-    let white = RGB::named(rltk::WHITE);
-    let pools = ecs.read_storage::<Pools>();
-    let player_pools = pools.get(*player_entity).unwrap();
-    draw_batch.print_color(
-        Point::new(1,11), 
-        &format!("Gold: {:.1}", player_pools.gold),
-        ColorPair::new(RGB::named(rltk::GOLD), black)
-    );
-}
-
 fn equipped(ecs: &World, draw_batch: &mut DrawBatch, player_entity: &Entity) -> i32 {
     let black = RGB::named(rltk::BLACK);
     let yellow = RGB::named(rltk::YELLOW);
@@ -339,7 +327,6 @@ pub fn draw_ui(ecs: &World, ctx : &mut Rltk) {
     map_label(ecs, &mut draw_batch);
     // draw_stats(ecs, &mut draw_batch, &player_entity);
     entities(ecs, &mut draw_batch, &player_entity);
-    // initiative_weight(ecs, &mut draw_batch, &player_entity);
     // let mut y = equipped(ecs, &mut draw_batch, &player_entity);
     // y += consumables(ecs, &mut draw_batch, &player_entity, y);
     // spells(ecs, &mut draw_batch, &player_entity, y);
