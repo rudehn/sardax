@@ -3,7 +3,7 @@ use specs::prelude::*;
 use crate::{gamelog, Consumable, Duration, Equipped, HungerClock, HungerState, InBackpack, KnownSpells, Map, Name, Pools, Renderable, StatusEffect, Weapon, Paralysis, Burning, Slow, Haste };
 use super::{draw_tooltips, get_item_display_name, get_item_color};
 use crate::vision::get_characters_in_vision;
-use crate::constants::{STATUS_BURNING_COLOR, STATUS_GENERIC_COLOR, STATUS_HASTE_COLOR, STATUS_PARALYSIS_COLOR, STATUS_SLOW_COLOR};
+use crate::constants::{LEFT_PANEL_WIDTH, PANEL_PADDING, MAP_WIDTH, STATUS_BURNING_COLOR, STATUS_GENERIC_COLOR, STATUS_HASTE_COLOR, STATUS_PARALYSIS_COLOR, STATUS_SLOW_COLOR};
 
 
 pub fn draw_bar_horizontal(
@@ -51,7 +51,8 @@ pub fn map_label(ecs: &World, draw_batch: &mut DrawBatch) {
 
     let map = ecs.fetch::<Map>();
     let name_length = map.name.len() + 2;
-    let x_pos = (75 - (name_length / 2)) as i32;
+    let start_x = (MAP_WIDTH / 2) as usize + (LEFT_PANEL_WIDTH + PANEL_PADDING) as usize;
+    let x_pos = (start_x - (name_length / 2)) as i32;
     draw_batch.set(Point::new(x_pos, 0), ColorPair::new(box_gray, black), to_cp437('┤'));
     draw_batch.set(Point::new(x_pos + name_length as i32 - 1, 0), ColorPair::new(box_gray, black), to_cp437('├'));
     draw_batch.print_color(Point::new(x_pos+1, 0), &map.name, ColorPair::new(white, black));
@@ -331,7 +332,7 @@ pub fn draw_ui(ecs: &World, ctx : &mut Rltk) {
     // y += consumables(ecs, &mut draw_batch, &player_entity, y);
     // spells(ecs, &mut draw_batch, &player_entity, y);
     // status(ecs, &mut draw_batch, &player_entity);
-    gamelog::print_log(&mut rltk::BACKEND_INTERNAL.lock().consoles[1].console, Point::new(30, 0));
+    gamelog::print_log(&mut rltk::BACKEND_INTERNAL.lock().consoles[1].console, Point::new(LEFT_PANEL_WIDTH, 0));
     draw_tooltips(ecs, ctx);
 
     draw_batch.submit(5000);

@@ -31,7 +31,7 @@ pub fn projectile(ecs: &mut World, tile_idx : i32, effect: &EffectSpawner) {
         std::mem::drop(map);
         ecs.create_entity()
             .with(Position{ x, y })
-            .with(Renderable{ fg: *fg, bg: *bg, glyph: *glyph, render_order: 0 })
+            .with(Renderable{ fg: *fg, bg: Some(*bg), glyph: *glyph, render_order: 0 })
             .with(ParticleLifetime{
                 lifetime_ms: path.len() as f32 * speed,
                 animation: Some(ParticleAnimation{

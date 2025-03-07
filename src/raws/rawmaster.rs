@@ -237,10 +237,14 @@ fn spawn_position<'a>(pos : SpawnType, new_entity : EntityBuilder<'a>, tag : &st
 }
 
 fn get_renderable_component(renderable : &super::item_structs::Renderable) -> crate::components::Renderable {
+    let mut bg: Option<rltk::RGB> = None;
+    if let Some(render_bg) = &renderable.bg{
+        bg = Some(rltk::RGB::from_hex(render_bg).expect("Invalid RGB"));
+    }
     crate::components::Renderable{
         glyph: rltk::to_cp437(renderable.glyph.chars().next().unwrap()),
         fg : rltk::RGB::from_hex(&renderable.fg).expect("Invalid RGB"),
-        bg : rltk::RGB::from_hex(&renderable.bg).expect("Invalid RGB"),
+        bg : bg,
         render_order : renderable.order
     }
 }

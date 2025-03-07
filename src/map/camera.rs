@@ -2,11 +2,12 @@ use specs::prelude::*;
 use crate::{Map,Position,Renderable,Hidden,TileSize,Target};
 use rltk::prelude::*;
 use crate::map::tile_glyph;
+use crate::constants::{GAME_LOG_MESSAGES, LEFT_PANEL_WIDTH, PANEL_PADDING, SCREEN_HEIGHT, SCREEN_WIDTH};
 
 pub fn get_screen_bounds(ecs: &World, _ctx:  &mut Rltk) -> (i32, i32, i32, i32) {
     let player_pos = ecs.fetch::<Point>();
-    //let (x_chars, y_chars) = ctx.get_char_size();
-    let (x_chars, y_chars) = (98, 64);
+    let x_chars = SCREEN_WIDTH - LEFT_PANEL_WIDTH - PANEL_PADDING; // Give some padding
+    let y_chars = SCREEN_HEIGHT - GAME_LOG_MESSAGES - PANEL_PADDING;
 
     let center_x = (x_chars / 2) as i32;
     let center_y = (y_chars / 2) as i32;
@@ -27,11 +28,13 @@ pub fn render_camera(ecs: &World, ctx : &mut Rltk) {
     let (min_x, max_x, min_y, max_y) = get_screen_bounds(ecs, ctx);
 
     // Render the Map
-    let x_offset = 30;
+    let x_offset = LEFT_PANEL_WIDTH as usize;
     let y_offset = 0;
 
     let map_width = map.width-1;
     let map_height = map.height-1;
+
+    let mut revealed_bg_colors = vec![rltk::RGB {r: 0.0, g: 0.0, b: 0.0}; (map.width*map.height) as usize];
 
     for (y,ty) in (min_y .. max_y).enumerate() {
         for (x,tx) in (min_x .. max_x).enumerate() {
@@ -39,6 +42,7 @@ pub fn render_camera(ecs: &World, ctx : &mut Rltk) {
                 let idx = map.xy_idx(tx, ty);
                 if map.revealed_tiles[idx] {
                     let (glyph, fg, bg) = tile_glyph(idx, &*map);
+                    revealed_bg_colors[idx] = bg;
                     draw_batch.set(
                         Point::new(x_offset + x+1, y_offset + y+1),
                         ColorPair::new(fg, bg),
@@ -77,9 +81,13 @@ pub fn render_camera(ecs: &World, ctx : &mut Rltk) {
                         let entity_screen_x = (cx + pos.x) - min_x;
                         let entity_screen_y = (cy + pos.y) - min_y;
                         if entity_screen_x > 0 && entity_screen_x < map_width && entity_screen_y > 0 && entity_screen_y < map_height {
+                            let mut bg = revealed_bg_colors[idx];
+                            if let Some(entity_bg) = render.bg {
+                                bg = entity_bg;
+                            }
                             draw_batch.set(
                                 Point::new(x_offset as i32 + entity_screen_x + 1, y_offset as i32 + entity_screen_y + 1),
-                                ColorPair::new(render.fg, render.bg),
+                                ColorPair::new(render.fg, bg),
                                 render.glyph
                             );
                         }
@@ -92,9 +100,13 @@ pub fn render_camera(ecs: &World, ctx : &mut Rltk) {
                 let entity_screen_x = pos.x - min_x;
                 let entity_screen_y = pos.y - min_y;
                 if entity_screen_x > 0 && entity_screen_x < map_width && entity_screen_y > 0 && entity_screen_y < map_height {
+                    let mut bg = revealed_bg_colors[idx];
+                    if let Some(entity_bg) = render.bg {
+                        bg = entity_bg;
+                    }
                     draw_batch.set(
                         Point::new(x_offset as i32 + entity_screen_x + 1, y_offset as i32 + entity_screen_y + 1),
-                        ColorPair::new(render.fg, render.bg),
+                        ColorPair::new(render.fg, bg),
                         render.glyph
                     );
                 }

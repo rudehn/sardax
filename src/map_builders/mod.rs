@@ -1,7 +1,7 @@
 use super::{Map, TileType, Position, spawner, SHOW_MAPGEN_VISUALIZER};
 use rltk::{Rect};
 use specs::prelude::*;
-use crate::constants::AMULET_LEVEL;
+use crate::constants::{AMULET_LEVEL, MAP_HEIGHT, MAP_WIDTH};
 
 mod simple_map;
 mod algorithms;
@@ -18,6 +18,9 @@ use utility::room_draw::RoomDrawer;
 use utility::rooms_corridors_nearest::NearestCorridors;
 use utility::door_placement::DoorPlacement;
 use utility::amulet_spawner::AmuletSpawner;
+use utility::room_corridor_spawner::CorridorSpawner;
+use utility::room_based_spawner::RoomBasedSpawner;
+use algorithms::voronoi_spawning::VoronoiSpawning;
 
 pub struct BuilderMap {
     pub spawn_list : Vec<(usize, String)>,
@@ -137,10 +140,10 @@ pub fn dungeon_entrance_builder(new_depth: i32, width: i32, height: i32) -> Buil
     builder.with(RoomExploder::new());
 
     // Spawn entities in corridors
-    // let cspawn_roll = crate::rng::roll_dice(1, 2);
-    // if cspawn_roll == 1 {
-    //     builder.with(CorridorSpawner::new());
-    // }
+    let cspawn_roll = crate::rng::roll_dice(1, 2);
+    if cspawn_roll == 1 {
+        builder.with(CorridorSpawner::new());
+    }
 
     builder.with(AreaStartingPosition::new(XStart::CENTER, YStart::BOTTOM));
     builder.with(DungeonEntranceSpawner::new());
@@ -148,11 +151,11 @@ pub fn dungeon_entrance_builder(new_depth: i32, width: i32, height: i32) -> Buil
     builder.with(DoorPlacement::new());
 
     
-    // let spawn_roll = crate::rng::roll_dice(1, 2);
-    // match spawn_roll {
-    //     1 => builder.with(RoomBasedSpawner::new()),
-    //     _ => builder.with(VoronoiSpawning::new())
-    // }
+    let spawn_roll = crate::rng::roll_dice(1, 2);
+    match spawn_roll {
+        1 => builder.with(RoomBasedSpawner::new()),
+        _ => builder.with(VoronoiSpawning::new())
+    }
     builder
 }
 
@@ -166,21 +169,21 @@ pub fn floor_builder(new_depth: i32, width: i32, height: i32) -> BuilderChain {
     builder.with(RoomExploder::new());
 
     // Spawn entities in corridors
-    // let cspawn_roll = crate::rng::roll_dice(1, 2);
-    // if cspawn_roll == 1 {
-    //     builder.with(CorridorSpawner::new());
-    // }
+    let cspawn_roll = crate::rng::roll_dice(1, 2);
+    if cspawn_roll == 1 {
+        builder.with(CorridorSpawner::new());
+    }
     
     let (start_x, start_y) = random_start_position();
     builder.with(AreaStartingPosition::new(start_x, start_y));
     builder.with(DoorPlacement::new());
 
     
-    // let spawn_roll = crate::rng::roll_dice(1, 2);
-    // match spawn_roll {
-    //     1 => builder.with(RoomBasedSpawner::new()),
-    //     _ => builder.with(VoronoiSpawning::new())
-    // }
+    let spawn_roll = crate::rng::roll_dice(1, 2);
+    match spawn_roll {
+        1 => builder.with(RoomBasedSpawner::new()),
+        _ => builder.with(VoronoiSpawning::new())
+    }
 
     match builder.build_data.map.depth {
         AMULET_LEVEL => builder.with(AmuletSpawner::new()),
@@ -208,6 +211,6 @@ pub fn level_builder(new_depth: i32, width: i32, height: i32) -> BuilderChain {
 pub fn map_dimensions(new_depth: i32) -> (i32, i32) {
     match new_depth {
         // 1 => (40, 25), // First map is smaller to give an introduction to the dungeon
-        _ => (80, 50)
+        _ => (MAP_WIDTH, MAP_HEIGHT)
     }
 }

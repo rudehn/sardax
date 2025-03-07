@@ -34,6 +34,7 @@ impl<'a> System<'a> for VisibleAI {
 
         for (entity, _turn, my_faction, pos, viewshed) in (&entities, &turns, &factions, &positions, &viewsheds).join() {
             if entity != *player {
+                // First, find out how this entity feels about all the other entities it can see
                 let my_idx = map.xy_idx(pos.x, pos.y);
                 let mut reactions : Vec<(usize, Reaction, Entity)> = Vec::new();
                 let mut flee : Vec<usize> = Vec::new();
@@ -52,6 +53,7 @@ impl<'a> System<'a> for VisibleAI {
                                 rltk::Point::new(pos.x, pos.y),
                                 rltk::Point::new(reaction.0 as i32 % map.width, reaction.0 as i32 / map.width)
                             );
+                            // Are there any abilities we can use to hit the creature we don't like
                             if let Some(abilities) = abilities.get(entity) {
                                 for ability in abilities.abilities.iter() {
                                     if range >= ability.min_range && range <= ability.range &&

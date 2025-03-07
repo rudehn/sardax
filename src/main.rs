@@ -461,11 +461,11 @@ impl State {
 
 fn main() -> rltk::BError {
     use rltk::RltkBuilder;
-    let context = RltkBuilder::simple(120, 70)
+    let context = RltkBuilder::simple(SCREEN_WIDTH, SCREEN_HEIGHT)
         .unwrap()
         .with_title("Caverns Descent")
         .with_font("vga8x16.png", 8, 16)
-        .with_sparse_console(120, 40, "vga8x16.png")
+        .with_sparse_console(SCREEN_WIDTH, 40, "vga8x16.png")
         .with_vsync(false)
         .build()?;
     // context.with_post_scanlines(true);
@@ -567,7 +567,7 @@ fn main() -> rltk::BError {
 
     gs.ecs.insert(GameStats{game_ticks: 0});
     gs.ecs.insert(map::MasterDungeonMap::new());
-    gs.ecs.insert(Map::new(1, 64, 64, "New Map"));
+    gs.ecs.insert(Map::new(1, MAP_WIDTH, MAP_HEIGHT, "New Map"));
     gs.ecs.insert(Point::new(0, 0));
     let player_entity = spawner::player(&mut gs.ecs, 0, 0);
     gs.ecs.insert(player_entity);

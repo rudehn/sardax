@@ -71,7 +71,6 @@ impl BspConfig {
 
 pub struct BspDungeonBuilder {
     config: BspConfig,
-    rects: Vec<Rect>,
 }
 
 impl InitialMapBuilder for BspDungeonBuilder {
@@ -86,21 +85,18 @@ impl BspDungeonBuilder {
     pub fn new(config: BspConfig) -> Box<BspDungeonBuilder> {
         Box::new(BspDungeonBuilder{
             config,
-            rects: Vec::new(),
         })
     }
 
     pub fn dungeon() -> Box<BspDungeonBuilder> {
         Box::new(BspDungeonBuilder{
             config: BspConfig::dungeon(),
-            rects: Vec::new(),
         })
     }
 
     pub fn interior() -> Box<BspDungeonBuilder> {
         Box::new(BspDungeonBuilder{
             config: BspConfig::interior(),
-            rects: Vec::new(),
             })
     }
 
@@ -214,36 +210,6 @@ impl BspDungeonBuilder {
             rooms.push(room);
         }
         build_data.take_snapshot();
-
-        // Add corridors
-        // for depth in (0..max_depth).rev() {
-        //     let mut parents = vec![root];
-
-        //     // Find nodes at `depth`
-        //     for _ in 0..depth {
-        //         parents = parents
-        //             .iter()
-        //             .flat_map(|&index| graph.neighbors(index))
-        //             .collect();
-        //     }
-
-        //     // Connect the children of each node at `depth`
-        //     for parent in parents {
-        //         let children = graph.neighbors(parent).collect::<Vec<_>>();
-        //         if children.len() < 2 {
-        //             continue;
-        //         }
-        //         for i in 0..children.len() - 1 {
-        //             connect_regions(
-        //                 *graph.node_weight(children[i]).unwrap(),
-        //                 *graph.node_weight(children[i + 1]).unwrap(),
-        //                 &mut build_data.map,
-        //                 rng,
-        //             );
-        //             build_data.take_snapshot();
-        //         }
-        //     }
-        // }
 
         build_data.rooms = Some(rooms);
     }

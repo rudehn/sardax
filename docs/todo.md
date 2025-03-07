@@ -5,6 +5,14 @@ Better visual of status effects for entities on side bar
 - Implement paralazis 
 Add constants for color, make status effect on side bar & the particle effect constant
 TODO - add particle effect colors for status effects - make same color as UI
+Turn status system needs to subtract energy cost
+Merge turn status system with end of turn system & apply right after initiative system?
+Migrate enemy abilities to become fully spells
+- Spells have an optional min range
+- Vision system queries the spells, not the spell metadata on the entity
+- Spells should consume mana (enemies)??
+- How to prevent monster from spamming spells & running out of mana
+- How does a bigger AI refactor play in here?
 
 
 

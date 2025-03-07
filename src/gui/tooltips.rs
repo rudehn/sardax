@@ -1,7 +1,8 @@
 use rltk::prelude::*;
 use specs::prelude::*;
-use crate::{Pools, Map, Name, Hidden, camera, StatusEffect, Duration };
+use crate::{camera, Duration, Hidden, Map, Name, Pools, StatusEffect, PANEL_PADDING };
 use super::get_item_display_name;
+use crate::constants::{GAME_LOG_MESSAGES, LEFT_PANEL_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, MAP_HEIGHT, MAP_WIDTH};
 
 struct Tooltip {
     lines : Vec<String>
@@ -51,9 +52,9 @@ pub fn draw_tooltips(ecs: &World, ctx : &mut Rltk) {
 
     let mouse_pos = ctx.mouse_pos();
     let mut mouse_map_pos = mouse_pos;
-    mouse_map_pos.0 += min_x - 1;
+    mouse_map_pos.0 += min_x - 1 - LEFT_PANEL_WIDTH;
     mouse_map_pos.1 += min_y - 1;
-    if mouse_pos.0 < 1 || mouse_pos.0 > 49 || mouse_pos.1 < 1 || mouse_pos.1 > 40 {
+    if mouse_pos.0 < 1 || mouse_pos.0 > SCREEN_WIDTH || mouse_pos.1 < 1 || mouse_pos.1 > SCREEN_HEIGHT {
         return;
     }
     if mouse_map_pos.0 >= map.width-1 || mouse_map_pos.1 >= map.height-1 || mouse_map_pos.0 < 1 || mouse_map_pos.1 < 1

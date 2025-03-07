@@ -23,7 +23,7 @@ pub fn player(ecs : &mut World, player_x : i32, player_y : i32) -> Entity {
         .with(Renderable {
             glyph: rltk::to_cp437('@'),
             fg: RGB::named(rltk::YELLOW),
-            bg: RGB::named(rltk::BLACK),
+            bg: None,
             render_order: 0
         })
         .with(Player{})
@@ -166,7 +166,7 @@ pub fn spawn_town_portal(ecs: &mut World) {
         .with(Renderable {
             glyph: rltk::to_cp437('♥'),
             fg: RGB::named(rltk::CYAN),
-            bg: RGB::named(rltk::BLACK),
+            bg: None,
             render_order: 0
         })
         .with(EntryTrigger{})

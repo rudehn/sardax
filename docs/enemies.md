@@ -39,7 +39,7 @@
                         "proc_effects": {
                             "slow" :  {}
                         }
-                    } }
+                    }. }
         ],
         "skills": [
             "web", "zap"

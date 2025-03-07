@@ -48,30 +48,13 @@ impl<'a> System<'a> for InitiativeSystem {
                 energy_gain = energy_gain * 2;
             }
             initiative.current += energy_gain;
-            // Several options here
-            // 1. It's the players turn
-            // 2. It's the enemies turn, but they are too far away, so don't process them
-            // 3. It's the enemies turn and they are nearby
             if initiative.current >= 0 {
-                // let mut myturn = true;
-
                 // If its the player, we want to go to an AwaitingInput state
                 if entity == *player {
                     // Give control to the player
                     *runstate = RunState::AwaitingInput;
                 }
-                //  else {
-                //     let distance = rltk::DistanceAlg::Pythagoras.distance2d(*player_pos, rltk::Point::new(pos.x, pos.y));
-                //     if distance > 20.0 {
-                //         myturn = false;
-                //     }
-                // }
-
-                // It's my turn!
-                // if myturn {
                 turns.insert(entity, MyTurn{}).expect("Unable to insert turn");
-                // }
-
             }
         }
     }

@@ -22,7 +22,6 @@
         "renderable": {
             "glyph" : "¶",
             "fg" : "#FF00FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -38,7 +37,6 @@
         "renderable": {
             "glyph" : "!",
             "fg" : "#FF00FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -54,7 +52,6 @@
         "renderable": {
             "glyph" : "!",
             "fg" : "#FF00FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -70,7 +67,6 @@
         "renderable": {
             "glyph" : "!",
             "fg" : "#FF00FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -86,7 +82,6 @@
         "renderable": {
             "glyph" : "!",
             "fg" : "#FF00FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -103,7 +98,6 @@
         "renderable": {
             "glyph" : "!",
             "fg" : "#FF00FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -119,7 +113,6 @@
         "renderable": {
             "glyph" : ")",
             "fg" : "#FFAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -139,7 +132,6 @@
         "renderable": {
             "glyph" : ")",
             "fg" : "#FFAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -157,7 +149,6 @@
         "renderable": {
             "glyph" : ")",
             "fg" : "#FFAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -176,7 +167,6 @@
         "renderable": {
             "glyph" : ")",
             "fg" : "#FFAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -195,7 +185,6 @@
         "renderable": {
             "glyph" : "%",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -212,7 +201,6 @@
         "renderable": {
             "glyph" : "ß",
             "fg" : "#FFD700",
-            "bg" : "#000000",
             "order" : 2
         },
         "weight_lbs" : 2.0,
@@ -224,7 +212,6 @@
         "renderable": {
             "glyph" : "%",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -241,7 +228,6 @@
         "renderable": {
             "glyph" : "!",
             "fg" : "#FF00FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -257,7 +243,6 @@
         "renderable": {
             "glyph" : "/",
             "fg" : "#FFAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "weapon" : {
@@ -275,7 +260,6 @@
         "renderable": {
             "glyph" : ")",
             "fg" : "#FFAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "weapon" : {
@@ -293,7 +277,6 @@
         "renderable": {
             "glyph" : ")",
             "fg" : "#FFAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "weapon" : {
@@ -311,7 +294,6 @@
         "renderable": {
             "glyph" : "/",
             "fg" : "#FFAAFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "weapon" : {
@@ -329,7 +311,6 @@
         "renderable": {
             "glyph" : "/",
             "fg" : "#FFAAFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "weapon" : {
@@ -347,7 +328,6 @@
         "renderable": {
             "glyph" : "/",
             "fg" : "#FFAAFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "weapon" : {
@@ -365,7 +345,6 @@
         "renderable": {
             "glyph" : "¶",
             "fg" : "#FF55FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "weapon" : {
@@ -383,7 +362,6 @@
         "renderable": {
             "glyph" : "¶",
             "fg" : "#FF55FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "weapon" : {
@@ -400,7 +378,6 @@
         "renderable": {
             "glyph" : "¶",
             "fg" : "#5555FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "weapon" : {
@@ -418,7 +395,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00AAFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -435,7 +411,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FFFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -452,7 +427,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -469,7 +443,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FFFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -486,7 +459,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FFFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -503,7 +475,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FFFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -520,7 +491,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FFFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -537,7 +507,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FFFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -554,7 +523,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -571,7 +539,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -589,7 +556,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -606,7 +572,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -623,7 +588,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -640,7 +604,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -657,7 +620,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -674,7 +636,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -691,7 +652,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#FF9999",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -708,7 +668,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#FF9999",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -725,7 +684,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#FF9999",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -742,7 +700,6 @@
         "renderable": {
             "glyph" : "[",
             "fg" : "#FF9999",
-            "bg" : "#000000",
             "order" : 2
         },
         "wearable" : {
@@ -758,7 +715,6 @@
         "renderable": {
             "glyph" : "/",
             "fg" : "#FFAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -781,7 +737,6 @@
         "renderable": {
             "glyph" : "/",
             "fg" : "#FFAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -802,7 +757,6 @@
         "renderable": {
             "glyph" : "/",
             "fg" : "#FFAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "consumable" : {
@@ -824,7 +778,6 @@
         "renderable": {
             "glyph" : "♀",
             "fg" : "#FFFFFF",
-            "bg" : "#000000",
             "order" : 2
         },
         "weight_lbs" : 0.5,
@@ -838,7 +791,6 @@
         "renderable": {
             "glyph" : "g",
             "fg" : "#00FF00",
-            "bg" : "#000000",
             "order" : 1
         },
         "blocks_tile" : true,
@@ -860,7 +812,6 @@
         "renderable": {
             "glyph" : "^",
             "fg" : "#FF0000",
-            "bg" : "#000000",
             "order" : 2
         },
         "hidden" : true,
@@ -877,7 +828,6 @@
         "renderable": {
             "glyph" : "^",
             "fg" : "#FF0000",
-            "bg" : "#000000",
             "order" : 2
         },
         "hidden" : true,
@@ -894,7 +844,6 @@
         "renderable": {
             "glyph" : "^",
             "fg" : "#FF0000",
-            "bg" : "#000000",
             "order" : 2
         },
         "hidden" : true,
@@ -913,7 +862,6 @@
         "renderable": {
             "glyph" : "+",
             "fg" : "#805A46",
-            "bg" : "#4D4D4D",
             "order" : 2
         },
         "hidden" : false,
@@ -928,7 +876,6 @@
         "renderable": {
             "glyph" : "╫",
             "fg" : "#5555FF",
-            "bg" : "#000000",
             "order" : 2
         },
         "hidden" : false,
@@ -944,7 +891,6 @@
         "renderable": {
             "glyph" : "Ä",
             "fg" : "#FFA500",
-            "bg" : "#000000",
             "order" : 2
         },
         "hidden" : false
@@ -955,7 +901,6 @@
         "renderable": {
             "glyph" : "╔",
             "fg" : "#AAAAAA",
-            "bg" : "#000000",
             "order" : 2
         },
         "hidden" : false
@@ -966,7 +911,6 @@
         "renderable": {
             "glyph" : "☼",
             "fg" : "#FFFF55",
-            "bg" : "#000000",
             "order" : 2
         },
         "hidden" : false,
@@ -985,7 +929,6 @@
         "renderable": {
             "glyph" : "^",
             "fg" : "#E25822",
-            "bg" : "#000000",
             "order" : 2
         },
         "hidden" : false,
@@ -1034,7 +977,6 @@
             "particle" : {"value": "☼;#00FF00;400.0"}
         }
     },
-
     {
         "name" : "Explode",
         "mana_cost" : 1,

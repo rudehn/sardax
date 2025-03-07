@@ -30,14 +30,3 @@ Resistances/Weaknesses/Immunities?
 ## Ranged Attacks
 ## Melee Attacks
 ## On-hit effects
-
-
-
-# Monster attributes
-Rarity
-Alertness (sleep, etc)
-
-
-
-pool.total_weight
-spawns Item.attributes

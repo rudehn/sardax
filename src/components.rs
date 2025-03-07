@@ -35,7 +35,7 @@ pub struct OtherLevelPosition {
 pub struct Renderable {
     pub glyph: rltk::FontCharType,
     pub fg: RGB,
-    pub bg: RGB,
+    pub bg: Option<RGB>, // If not specified, use the floor color
     pub render_order : i32
 }
 

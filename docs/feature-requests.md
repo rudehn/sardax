@@ -1,6 +1,4 @@
 # Feature Requests
-* Bumping into the dungeon exit should try to leave dungeon, rather than standing on the exit and pressing ','
-* It would be nice if the dungeon exit was always at the bottom center of the first dungeon floor
 * Increase the size of the screen, especially for the web
 * Add a view that can be accessed that shows the entire message history log
 * It would be nice to have an optional? recharge for chargeable items, such as staves. The recharge time would be like 500 steps and could be higher the more potent the item is
@@ -11,13 +9,7 @@
 * Update tunneling staff to tunnel more than 1 cell
 * Update tunneling staff targeting to only select walls (not floors)
 * Determine tradeoff of enemies dropping all of their equipment vs chance to drop 1 or more items, vs random loot drop, or some combination of approaches
-* Hovering over an item should show stats
-* Hovering over an enemy should show stats
-* It would be nice to have a list of all the items/enemies in line of sight be listed on the side of the screen, like Brogue does
-* New title screen
 * Add concept for sleeping/guarding/idle AI. So any prefabs we place won't have their mobs just start wandering off
-* We need a better speed/initiative system. Ideally one that allocates X number of "energy" per iteration, where "X" is determined by the monsters stats. Then actions would cost "Y" amount of energy. You might have enough energy to perform 2 actions per turn, or it may take you multiple turns to make your action happen
-    * The current random initiative system + encumberance penalty just isn't fun
 * Determine how to add in damage types, IE expand pass simple physical damage into fire, poison, etc. Does the attack itself inflict that damage type? Does the attack inflict a burning or poison status effect? etc
 * How does the vision range feel? Does it need updated?
 * Each type of weapon should have a unique stat or effect. Such as a spear hitting 2 tiles in front of character, while an axe does AOE in a circle around character, etc. Giving a unique feel for each type of weapon makes for more interesting gameplay options, rather than just swapping out for a weapon with better stats
@@ -34,8 +26,6 @@
 - Separate out spawns.json into separate files
 - Add armor attribute
 - Add lifesteal
-- Add efects on enemy attacks
-- Remove initiative penalty from item data
 - Add a spawn item function
   - Chance to spawn common/rare/legendary items. Rare/Legendary change increases as dungeon level goes up
   - Add a spawn table for items?
@@ -60,7 +50,14 @@ Create AI for determining which spells to cast and where to cast them
     - Only calculate for actions that are off cooldown
 
 # TODO Priority
-- Add on hit effects for enemies
+- It would be nice if the dungeon exit was always at the bottom center of the first dungeon floor
+* Bumping into the dungeon exit should try to leave dungeon, rather than standing on the exit and pressing ','
+* Hovering over an item should show stats
+* Hovering over an enemy should show stats
+* Organize what spawns structure template is for each entity type
+* New title screen
+* It would be nice to have a list of all the items/enemies in line of sight be listed on the side of the screen, like Brogue does
+  * Hovering over the entity on the side would highlight it on the map
 - Update kill drops to roll from loot table
   - creature table vs floor table vs creature inventory
-- 
+- Particle effects should have the option to use background tile color

@@ -1,6 +1,7 @@
 use std::sync::Mutex;
 use super::LogFragment;
 use rltk::prelude::*;
+use crate::constants::GAME_LOG_MESSAGES;
 
 lazy_static! {
     static ref LOG : Mutex<Vec<Vec<LogFragment>>> = Mutex::new(Vec::new());
@@ -17,8 +18,9 @@ pub fn clear_log() {
 pub fn print_log(console: &mut Box<dyn Console>, pos: Point) {
     let mut y = pos.y;
     let mut x = pos.x;
+    let n = GAME_LOG_MESSAGES as usize;
     // Grab the last 4 messages, then reverse to print them so the most recent is at the bottom
-    LOG.lock().unwrap().iter().rev().take(4).rev().for_each(|log| {
+    LOG.lock().unwrap().iter().rev().take(n).rev().for_each(|log| {
         log.iter().for_each(|frag| {
             console.print_color(x, y, frag.color.to_rgba(1.0), RGBA::named(rltk::BLACK), &frag.text);
             x += frag.text.len() as i32;

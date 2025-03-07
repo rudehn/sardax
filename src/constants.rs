@@ -1,8 +1,17 @@
 use rltk::{BLUE, GREEN, ORANGE, PURPLE, YELLOW};
 
 // DEBUG
-pub const SHOW_MAPGEN_VISUALIZER : bool = true;
+pub const SHOW_MAPGEN_VISUALIZER : bool = false;
 pub const SHOW_FPS : bool = true;
+
+// Sizing
+pub const SCREEN_WIDTH: i32 = 120;
+pub const SCREEN_HEIGHT: i32 = 80;
+pub const MAP_WIDTH: i32 = 80;
+pub const MAP_HEIGHT: i32 = 50;
+pub const GAME_LOG_MESSAGES: i32 = 4;
+pub const PANEL_PADDING: i32 = 2;
+pub const LEFT_PANEL_WIDTH: i32 = 30;
 
 // Game Mechanics
 pub const AMULET_LEVEL: i32 = 10;

@@ -19,7 +19,7 @@ pub struct Item {
 pub struct Renderable {
     pub glyph: String,
     pub fg : String,
-    pub bg : String,
+    pub bg : Option<String>,
     pub order: i32,
     pub x_size : Option<i32>,
     pub y_size : Option<i32>
