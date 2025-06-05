@@ -50,6 +50,9 @@ Create AI for determining which spells to cast and where to cast them
     - Only calculate for actions that are off cooldown
 
 # TODO Priority
+* Update tooltip to show entity inventory
+* ogre enemy, attack causes stun
+* REfactor armor class
 - It would be nice if the dungeon exit was always at the bottom center of the first dungeon floor
 * Bumping into the dungeon exit should try to leave dungeon, rather than standing on the exit and pressing ','
 * Hovering over an item should show stats

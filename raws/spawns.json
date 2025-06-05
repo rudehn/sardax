@@ -1,6 +1,11 @@
 {
 "spawn_table" : [
-    { "name" : "Goblin", "weight" : 10, "min_depth" : 1, "max_depth" : 25}
+    { "name" : "Goblin", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
+    { "name" : "Breastplate", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
+    { "name" : "Health Potion", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
+    { "name" : "Beginner's Magic", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
+    { "name" : "Magic Mapping Scroll", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
+    { "name" : "Rod of Fireballs", "weight" : 10, "min_depth" : 1, "max_depth" : 26}
 ],
 
 "loot_tables" : [
@@ -29,7 +34,8 @@
         },
         "weight_lbs" : 0.5,
         "base_value" : 50.0,
-        "vendor_category" : "alchemy"
+        "vendor_category" : "alchemy",
+        "magic" : { "class" : "rare", "naming" : "Unidentified book" }
     },
 
     {
@@ -423,38 +429,6 @@
     },
 
     {
-        "name" : "Stained Tunic",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Torso",
-            "armor_class" : 0.1
-        },
-        "weight_lbs" : 1.0,
-        "base_value" : 1.0,
-        "vendor_category" : "junk"
-    },
-
-    {
-        "name" : "Torn Trousers",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FFFF",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Legs",
-            "armor_class" : 0.1
-        },
-        "weight_lbs" : 1.0,
-        "base_value" : 1.0,
-        "vendor_category" : "junk"
-    },
-
-    {
         "name" : "Leather Pants",
         "renderable": {
             "glyph" : "[",
@@ -729,7 +703,7 @@
         "weight_lbs" : 0.5,
         "base_value" : 500.0,
         "vendor_category" : "alchemy",
-        "magic" : { "class" : "common", "naming" : "Unidentified Rod" }
+        "magic" : { "class" : "legendary", "naming" : "Unidentified Rod" }
     },
     
     {
@@ -794,7 +768,7 @@
             "order" : 1
         },
         "blocks_tile" : true,
-        "vision_range" : 12,
+        "vision_range" : 18,
         "movement" : "random",
         "health": "1d6",
         "attributes": {

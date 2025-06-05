@@ -94,33 +94,3 @@ impl RoomBasedStartingPosition {
     }
 }
 
-
-pub struct DungeonEntranceSpawner {}
-
-impl MetaMapBuilder for DungeonEntranceSpawner {
-    fn build_map(&mut self, build_data : &mut BuilderMap)  {
-        self.build(build_data);
-    }
-}
-
-impl DungeonEntranceSpawner {
-    #[allow(dead_code)]
-    pub fn new() -> Box<DungeonEntranceSpawner> {
-        Box::new(DungeonEntranceSpawner{})
-    }
-
-    fn build(&mut self, build_data : &mut BuilderMap) {
-        if build_data.map.depth == 1 {
-            match &build_data.starting_position {
-                Some(sp) => {
-                    let dungeon_exit_idx = build_data.map.xy_idx(sp.x, sp.y);
-                    build_data.map.tiles[dungeon_exit_idx] = TileType::DungeonExit;
-                    build_data.take_snapshot();
-                },
-                None => panic!("Dungeon Entrance Spawner needs a map starting point!"),
-            }
-        } else {
-            panic!("Dungeon Entrance Spawner can only be used on the first floor!");
-        }
-    }
-}

@@ -15,3 +15,4 @@ pub mod starting_points;
 pub mod cull_unreachable;
 pub mod area_ending_point;
 pub mod amulet_spawner;
+pub mod exit_points;

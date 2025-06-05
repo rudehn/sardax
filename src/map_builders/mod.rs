@@ -3,7 +3,6 @@ use rltk::{Rect};
 use specs::prelude::*;
 use crate::constants::{AMULET_LEVEL, MAP_HEIGHT, MAP_WIDTH};
 
-mod simple_map;
 mod algorithms;
 mod utility;
 mod common;
@@ -11,7 +10,8 @@ mod prefab_builder;
 
 use utility::distant_exit::DistantExit;
 use algorithms::bsp_dungeon::BspDungeonBuilder;
-use utility::starting_points::{AreaStartingPosition, DungeonEntranceSpawner, XStart, YStart};
+use utility::exit_points::DungeonExitSpawner;
+use utility::starting_points::{AreaStartingPosition, XStart, YStart};
 use common::*;
 use utility::room_exploder::RoomExploder;
 use utility::room_draw::RoomDrawer;
@@ -130,37 +130,11 @@ fn random_start_position() -> (XStart, YStart) {
     (x, y)
 }
 
-pub fn dungeon_entrance_builder(new_depth: i32, width: i32, height: i32) -> BuilderChain {
-    let map_name = "Dungeon Entrance".to_owned();
-    let mut builder = BuilderChain::new(new_depth, width, height, map_name);
-    builder.start_with(BspDungeonBuilder::dungeon());
-    // builder.with(RoomSorter::new(RoomSort::CENTRAL));
-    builder.with(RoomDrawer::new());
-    builder.with(NearestCorridors::new());
-    builder.with(RoomExploder::new());
-
-    // Spawn entities in corridors
-    let cspawn_roll = crate::rng::roll_dice(1, 2);
-    if cspawn_roll == 1 {
-        builder.with(CorridorSpawner::new());
-    }
-
-    builder.with(AreaStartingPosition::new(XStart::CENTER, YStart::BOTTOM));
-    builder.with(DungeonEntranceSpawner::new());
-    builder.with(DistantExit::new());
-    builder.with(DoorPlacement::new());
-
-    
-    let spawn_roll = crate::rng::roll_dice(1, 2);
-    match spawn_roll {
-        1 => builder.with(RoomBasedSpawner::new()),
-        _ => builder.with(VoronoiSpawning::new())
-    }
-    builder
-}
-
 pub fn floor_builder(new_depth: i32, width: i32, height: i32) -> BuilderChain {
-    let map_name = "Floor ".to_owned() + &new_depth.to_string();
+    let mut map_name = "Floor ".to_owned() + &new_depth.to_string();
+    if new_depth == 1 {
+        map_name = "Dungeon Entrance".to_owned();
+    } 
     let mut builder = BuilderChain::new(new_depth, width, height, map_name);
     builder.start_with(BspDungeonBuilder::dungeon());
     // builder.with(RoomSorter::new(RoomSort::CENTRAL));
@@ -185,16 +159,16 @@ pub fn floor_builder(new_depth: i32, width: i32, height: i32) -> BuilderChain {
         _ => builder.with(VoronoiSpawning::new())
     }
 
-    match builder.build_data.map.depth {
-        AMULET_LEVEL => builder.with(AmuletSpawner::new()),
-        _ => {
-            let exit_roll = crate::rng::roll_dice(1, 2);
-            match exit_roll {
-                // 1 => builder.with(RoomBasedStairs::new()),
-                // TODO - better algorithm for generating exit
-                _ => builder.with(DistantExit::new())
-            }
-        }
+    let exit_roll = crate::rng::roll_dice(1, 2);
+    match exit_roll {
+        // 1 => builder.with(RoomBasedStairs::new()),
+        // TODO - better algorithm for generating exit
+        _ => builder.with(DistantExit::new())
+    }
+
+    if builder.build_data.map.depth == AMULET_LEVEL {
+        builder.with(AmuletSpawner::new());
+        builder.with(DungeonExitSpawner::new());
     }
 
     builder
@@ -202,10 +176,7 @@ pub fn floor_builder(new_depth: i32, width: i32, height: i32) -> BuilderChain {
 
 pub fn level_builder(new_depth: i32, width: i32, height: i32) -> BuilderChain {
     rltk::console::log(format!("Depth: {}", new_depth));
-    match new_depth {
-        1 => dungeon_entrance_builder(new_depth, width, height),
-        _ => floor_builder(new_depth, width, height)
-    }
+    floor_builder(new_depth, width, height)
 }
 
 pub fn map_dimensions(new_depth: i32) -> (i32, i32) {

@@ -267,7 +267,6 @@ pub fn try_previous_level(ecs: &mut World) -> bool {
     let player_idx = map.xy_idx(player_pos.x, player_pos.y);
     match map.tiles[player_idx]{
         TileType::UpStairs => true,
-        TileType::DungeonExit => false, // Handled in the try_exit_dungeon function
         _ => {
             crate::gamelog::Logger::new().append("There is no way up from here.").log();
             false
@@ -495,15 +494,15 @@ pub fn player_input(gs: &mut State, ctx: &mut Rltk) -> RunState {
 
             // Level changes
             VirtualKeyCode::Period => {
+                if try_exit_dungeon(&mut gs.ecs) {
+                    return RunState::GameOver {won: true};
+                }
                 if try_next_level(&mut gs.ecs) {
                     return RunState::NextLevel;
                 }
             }
             VirtualKeyCode::Comma => {
-                if try_exit_dungeon(&mut gs.ecs) {
-                    return RunState::GameOver {won: true};
-                }
-                else if try_previous_level(&mut gs.ecs) {
+                if try_previous_level(&mut gs.ecs) {
                     return RunState::PreviousLevel;
                 }
             }

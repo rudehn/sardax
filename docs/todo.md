@@ -23,7 +23,8 @@ spawn_all_spells exists?
 spawner.rs import errors
 
 death - drop all inventory, drop all equipped, roll loot table
-each item should have a rarity & floor range
-loot table should first roll for loot rarity, 1: legendary, 10: rare, 100: uncommon, 1000: common,
- - then roll rarity from available floor range  
-loot table updates
+ranged_target function shows "Select Target" in top left corner
+Magic Items not showing color on map
+Item actions not taking up energy
+Fireball staff explosion shows up a turn late
+Using an item doesn't display on game log

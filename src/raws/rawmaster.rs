@@ -47,11 +47,6 @@ pub struct RawMaster {
     spell_index : HashMap<String, usize>
 }
 
-struct NewMagicItem {
-    name : String,
-    bonus : i32
-}
-
 impl RawMaster {
     pub fn empty() -> RawMaster {
         RawMaster {
@@ -689,6 +684,57 @@ pub fn spawn_named_entity(raws: &RawMaster, ecs : &mut World, key : &str, pos : 
     None
 }
 
+
+struct MagicItemChance{
+    pub common: i32,
+    pub uncommon: i32,
+    pub rare: i32,
+    pub legendary: i32,
+}
+
+pub fn get_magic_item_loot_table_weight(depth: i32) -> MagicItemChance {
+    match depth {
+        // common = 432 / 1000 = 23.0%
+        // uncommon = 400 / 1000 = 50%
+        // rare = 160 / 1000 = 25.0%
+        // legendary = 20 / 1000 = 2.0% 
+        21 | 22 | 23 | 24 | 25 | 26 => MagicItemChance{common: 230, uncommon: 500, rare: 250, legendary: 20},
+        // common = 432 / 1000 = 43.2%
+        // uncommon = 400 / 1000 = 40%
+        // rare = 160 / 1000 = 16.0%
+        // legendary = 8 / 1000 = .8% 
+        16 | 17 | 18 | 19 | 20 => MagicItemChance{common: 432, uncommon: 400, rare: 160, legendary: 8},
+        // common = 616 / 1000 = 61.6%
+        // uncommon = 300 / 1000 = 30%
+        // rare = 80 / 1000 = 8.0%
+        // legendary = 4 / 1000 = .4% 
+        11 | 12 | 13 | 14 | 15 => MagicItemChance{common: 616, uncommon: 300, rare: 80, legendary: 4},
+        // common = 879 / 1000 = 75.8%
+        // uncommon = 200 / 1000 = 20%
+        // rare = 40 / 1000 = 4.0%
+        // legendary = 2 / 1000 = .2% 
+        6 | 7 | 8 | 9 | 10 => MagicItemChance{common: 758, uncommon: 200, rare: 40, legendary: 2},
+        // common = 879 / 1000 = 87.9%
+        // uncommon = 100 / 1000 = 10%
+        // rare = 20 / 1000 = 2.0%
+        // legendary = 1 / 1000 = .1% 
+        1 | 2 | 3 | 4 | 5 | _ => MagicItemChance{common: 879, uncommon: 100, rare: 20, legendary: 10000},
+        // 1 | 2 | 3 | 4 | 5 | _ => MagicItemChance{common: 879, uncommon: 100, rare: 20, legendary: 1},
+        // 26 => MagicItemChance{uncommon: 0.9, rare: 0.2, legendary: 0.01},
+        // 25 => MagicItemChance{uncommon: 0.8, rare: 0.125, legendary: 0.005},
+        // 24 => MagicItemChance{uncommon: 0.7, rare: 0.1, legendary: 0.0033},
+        // 23 => MagicItemChance{uncommon: 0.6, rare: 0.05, legendary: 0.0025},
+        // 21 | 22 => MagicItemChance{uncommon: 0.5, rare: 0.033, legendary: 0.002},
+        // 17 | 18 | 19 | 20 => MagicItemChance{uncommon: 0.4, rare: 0.025, legendary: 0.001667},
+        // 13 | 14 | 15 | 16 => MagicItemChance{uncommon: 0.3, rare: 0.02, legendary: 0.001429},
+        // 9 | 10 | 11 | 12 => MagicItemChance{uncommon: 0.2, rare: 0.01667, legendary: 0.00125},
+        // 5 | 6 | 7 | 8 => MagicItemChance{uncommon: 0.125, rare: 0.0133, legendary: 0.001111},
+        // 1 | 2 | 3 | 4 => MagicItemChance{uncommon: 0.1, rare: 0.01, legendary: 0.001},
+        // _ => MagicItemChance{uncommon: 0.1, rare: 0.01, legendary: 0.001 },
+    }
+}
+
+
 pub enum SpawnTableType { Item, Mob, Prop }
 
 pub fn spawn_type_by_name(raws: &RawMaster, key : &str) -> SpawnTableType {
@@ -704,6 +750,8 @@ pub fn spawn_type_by_name(raws: &RawMaster, key : &str) -> SpawnTableType {
 pub fn get_spawn_table_for_depth(raws: &RawMaster, depth: i32) -> MasterTable {
     use super::SpawnTableEntry;
 
+    let magic_item_weights = get_magic_item_loot_table_weight(depth);
+
     let available_options : Vec<&SpawnTableEntry> = raws.raws.spawn_table
         .iter()
         .filter(|a| depth >= a.min_depth && depth <= a.max_depth)
@@ -711,8 +759,29 @@ pub fn get_spawn_table_for_depth(raws: &RawMaster, depth: i32) -> MasterTable {
 
     let mut rt = MasterTable::new();
     for e in available_options.iter() {
+        // This iterates the entire spawn table, which includes mobs, items & props
+        // We want to treat items differently, and set their weights based off of 
+        // item rarity and depth level
+        // We treat non-magic items & common magic items as both having common spawn weights
         let mut weight = e.weight;
-        if e.add_map_depth_to_weight.is_some() {
+
+        if raws.item_index.contains_key(&e.name) {
+            let item_template = &raws.raws.items[raws.item_index[&e.name]];
+            if let Some(magic) = &item_template.magic {
+                let class = match magic.class.as_str() {
+                    "uncommon" => weight = magic_item_weights.uncommon,
+                    "rare" => weight = magic_item_weights.rare,
+                    "legendary" => weight = magic_item_weights.legendary,
+                    _ => weight = magic_item_weights.common
+                };
+            }
+            else {
+                // Non magic item, assign common weight
+                weight = magic_item_weights.common;
+            }
+        }
+        else if e.add_map_depth_to_weight.is_some() {
+            // We don't add depth weight to items
             weight += depth;
         }
         rt.add(e.name.clone(), weight, raws);

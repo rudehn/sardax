@@ -44,6 +44,14 @@ impl MasterTable {
             _ => "None".to_string()
         }
     }
+
+    pub fn roll_by_type(&self, spawn_type: SpawnTableType) -> String {
+        match spawn_type {
+            SpawnTableType::Mob => self.mobs.roll(),
+            SpawnTableType::Item => self.items.roll(),
+            SpawnTableType::Prop => self.props.roll()
+        }
+    }
 }
 
 #[derive(Default)]

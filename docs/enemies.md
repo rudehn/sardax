@@ -17,7 +17,7 @@
             "order" : 1
         },
         "blocks_tile" : true,
-        "vision_range" : 12,
+        "vision_range" : 18,
         "movement" : "static",
         // "unique": True,
         // can pickup/equip items - AI setting?
