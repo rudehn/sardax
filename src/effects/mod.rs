@@ -1,7 +1,7 @@
 use std::sync::Mutex;
 use specs::prelude::*;
 use std::collections::{HashMap, HashSet, VecDeque};
-use crate::components::EffectValues;
+use crate::components::{AttributeBonus, EffectValues};
 use crate::map::Map;
 mod damage;
 mod targeting;
@@ -33,6 +33,7 @@ pub enum EffectType {
     Burning { turns: i32 },
     TriggerFire { trigger: Entity },
     TeleportTo { x:i32, y:i32, depth: i32, player_only : bool },
+    AttributeEffect { bonus : AttributeBonus, name : String, duration : i32 },
     Slow,
     Haste,
     CreatesTunnel,
@@ -107,6 +108,7 @@ fn tile_effect_hits_entities(effect: &EffectType) -> bool {
         EffectType::Paralysis{..} => true,
         EffectType::Burning{..} => true,
         EffectType::TeleportTo{..} => true,
+        EffectType::AttributeEffect{..} => true,
         EffectType::Slow => true,
         EffectType::Haste => true,
         _ => false
@@ -147,6 +149,7 @@ fn affect_entity(ecs: &mut World, effect: &mut EffectSpawner, target: Entity) {
         EffectType::Paralysis{..} => damage::add_paralysis(ecs, effect, target),
         EffectType::Burning{..} => damage::add_burning(ecs, effect, target),
         EffectType::TeleportTo{..} => movement::apply_teleport(ecs, effect, target),
+        EffectType::AttributeEffect{..} => damage::attribute_effect(ecs, effect, target),
         EffectType::Slow => damage::slow(ecs, effect, target),
         EffectType::Haste => damage::haste(ecs, effect, target),
         _ => {}

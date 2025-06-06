@@ -1,6 +1,7 @@
 use std::collections::{HashMap, HashSet};
 use specs::prelude::*;
 use crate::components::*;
+use crate::attr_bonus;
 use super::{Raws, faction_structs::Reaction};
 use crate::random_table::{MasterTable, RandomTable};
 use crate::components::EffectValues;
@@ -394,6 +395,15 @@ pub fn spawn_named_item(raws: &RawMaster, ecs : &mut World, key : &str, pos : Sp
             }
         }
 
+        if let Some(ab) = &item_template.attributes {
+            eb = eb.with(AttributeBonus{
+                strength : ab.strength,
+                // constitution : ab.constitution,
+                // dexterity : ab.dexterity,
+                // intelligence : ab.intelligence,
+            });
+        }
+
         return Some(eb.build());
     }
     None
@@ -419,12 +429,12 @@ pub fn spawn_named_mob(raws: &RawMaster, ecs : &mut World, key : &str, pos : Spa
         if let Some(energy) = mob_template.attributes.energy {
             initiative.energy_gain = energy;
         }
-        if let Some(attack_cost) = mob_template.attributes.attack_action_mult {
-            initiative.attack_action_mult = attack_cost;
-        }
-        if let Some(move_cost) = mob_template.attributes.move_action_mult {
-            initiative.move_action_mult = move_cost;
-        }
+        // if let Some(attack_cost) = mob_template.attributes.attack_action_mult {
+        //     initiative.attack_action_mult = attack_cost;
+        // }
+        // if let Some(move_cost) = mob_template.attributes.move_action_mult {
+        //     initiative.move_action_mult = move_cost;
+        // }
         eb = eb.with(initiative);
 
         // Renderable
@@ -454,14 +464,10 @@ pub fn spawn_named_mob(raws: &RawMaster, ecs : &mut World, key : &str, pos : Spa
         }
 
         let mut attr = Attributes{
-            accuracy: 100,
-            dodge: 0,
+            strength: Attribute { base: 10, modifiers: 0, bonus: attr_bonus(10) }
         };
-        if let Some(accuracy) = mob_template.attributes.accuracy {
-            attr.accuracy = accuracy;
-        }
-        if let Some(dodge) = mob_template.attributes.dodge {
-            attr.dodge = dodge;
+        if let Some(strength) = mob_template.attributes.strength {
+            attr.strength = Attribute{ base: strength, modifiers: 0, bonus: attr_bonus(strength) };;
         }
     
         eb = eb.with(attr);
@@ -483,6 +489,7 @@ pub fn spawn_named_mob(raws: &RawMaster, ecs : &mut World, key : &str, pos : Spa
             god_mode : false
         };
         eb = eb.with(pools);
+        eb = eb.with(EquipmentChanged{});
 
         eb = eb.with(Viewshed{ visible_tiles : Vec::new(), range: mob_template.vision_range, dirty: true });
 

@@ -218,6 +218,20 @@ fn event_trigger(creator : Option<Entity>, entity: Entity, targets : &Targets, e
         did_something = true;
     }
 
+    // Attribute Modifiers
+    if let Some(attr) = ecs.read_storage::<AttributeBonus>().get(entity) {
+        add_effect(
+            creator,
+            EffectType::AttributeEffect{
+                bonus : attr.clone(),
+                duration : 10,
+                name : ecs.read_storage::<Name>().get(entity).unwrap().name.clone()
+            },
+            targets.clone()
+        );
+        did_something = true;
+    }
+
     // Learn spells
     if let Some(spell) = ecs.read_storage::<TeachesSpell>().get(entity) {
         if let Some(known) = ecs.write_storage::<KnownSpells>().get_mut(creator.unwrap()) {

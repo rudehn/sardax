@@ -562,6 +562,8 @@ fn main() -> rltk::BError {
     gs.ecs.register::<WantsToShoot>();
     gs.ecs.register::<GameStats>();
     gs.ecs.insert(SimpleMarkerAllocator::<SerializeMe>::new());
+    gs.ecs.register::<AttributeBonus>();
+    gs.ecs.register::<EquipmentChanged>();
 
     raws::load_raws();
 

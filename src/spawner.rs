@@ -2,9 +2,9 @@ use rltk::{ RGB, Rect };
 use specs::prelude::*;
 use super::{Pools, Pool, Player, Renderable, Name, Position, Viewshed,
     SerializeMe, random_table::MasterTable, HungerClock, HungerState, Map, TileType, raws::*,
-    Attributes, Skills, Skill, LightSource, Initiative, Faction,
+    Attributes, Attribute, Skills, Skill, LightSource, Initiative, Faction,
     OtherLevelPosition, MasterDungeonMap, EntryTrigger, TeleportTo, SingleActivation, KnownSpells,
-    DEFAULT_ENERGY_GAIN};
+    EquipmentChanged, DEFAULT_ENERGY_GAIN, attr_bonus};
 use specs::saveload::{MarkedBuilder, SimpleMarker};
 use std::collections::HashMap;
 
@@ -31,8 +31,7 @@ pub fn player(ecs : &mut World, player_x : i32, player_y : i32) -> Entity {
         .with(Name{name: "You".to_string() })
         .with(HungerClock{ state: HungerState::WellFed, duration: 200 })
         .with(Attributes{
-            accuracy: 100,
-            dodge: 0,
+            strength: Attribute{base: 11, modifiers: 0, bonus: attr_bonus(11)}
         })
         .with(skills)
         .with(Pools{
@@ -48,6 +47,7 @@ pub fn player(ecs : &mut World, player_x : i32, player_y : i32) -> Entity {
             gold : 0.0,
             god_mode : false
         })
+        .with(EquipmentChanged{})
         .with(LightSource{ color: rltk::RGB::from_f32(1.0, 1.0, 1.0), range: 12 })
         .with(Initiative{
             energy_gain: DEFAULT_ENERGY_GAIN,

@@ -3,6 +3,7 @@ use crate::{Skills, WantsToMelee, Name, Pools, Equipped, Weapon, EquipmentSlot,
     Wearable, NaturalAttackDefense, AttackEffect, effects::*, WantsToShoot,Initiative, Position, Map, Attributes};
 use super::ai::apply_attack_action_cost;
 use rltk::{to_cp437, RGB, Point};
+use crate::damage_system::get_evade_stat;
 
 
 pub struct MeleeCombatSystem {}
@@ -67,7 +68,7 @@ impl<'a> System<'a> for MeleeCombatSystem {
                         let natural_roll = crate::rng::roll_dice(1, 100);
                        
                         let hit_chance = natural_roll +  weapon_info.hit_bonus;
-                        let evade_chance = target_attributes.dodge;
+                        let evade_chance = get_evade_stat(&target_attributes);
                         if hit_chance < 100 - evade_chance {
                             // Target hit!
                             let base_damage = crate::rng::roll_dice(weapon_info.damage_n_dice, weapon_info.damage_die_type);
@@ -101,7 +102,7 @@ impl<'a> System<'a> for MeleeCombatSystem {
                     let natural_roll = crate::rng::roll_dice(1, 100);
                     
                     let hit_chance = natural_roll + weapon_info.hit_bonus;
-                    let evade_chance = target_attributes.dodge;
+                    let evade_chance = get_evade_stat(&target_attributes);
                     if hit_chance < 100 - evade_chance {
                         // Target hit!
                         let base_damage = crate::rng::roll_dice(weapon_info.damage_n_dice, weapon_info.damage_die_type);
@@ -219,7 +220,7 @@ impl<'a> System<'a> for RangedCombatSystem {
 
                 //println!("Armor class: {}", armor_class);
                 // Apply a 10% hit penalty to ranged attacks
-                let evade_chance = 10 + target_attributes.dodge;
+                let evade_chance = 10 + get_evade_stat(&target_attributes);
                 if hit_chance < 100 - evade_chance {
                     // Target hit!
                     let base_damage = crate::rng::roll_dice(weapon_info.damage_n_dice, weapon_info.damage_die_type);

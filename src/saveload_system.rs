@@ -62,7 +62,7 @@ pub fn save_game(ecs : &mut World) {
             TeleportTo, ApplyMove, ApplyTeleport, MagicItem, ObfuscatedName, IdentifiedItem,
             SpawnParticleBurst, SpawnParticleLine, CursedItem, ProvidesRemoveCurse, ProvidesIdentification, StatusEffect, Duration, KnownSpells, SpellTemplate, WantsToCastSpell, TeachesSpell,
             ProvidesMana, Haste, Slow, SpecialAbilities, TileSize, OnDeath, AlwaysTargetsSelf,
-            Target, WantsToShoot, GameStats
+            Target, WantsToShoot, GameStats, AttributeBonus, EquipmentChanged
         );
     }
 
@@ -120,7 +120,7 @@ pub fn load_game(ecs: &mut World) {
             TeleportTo, ApplyMove, ApplyTeleport, MagicItem, ObfuscatedName, IdentifiedItem,
             SpawnParticleBurst, SpawnParticleLine, CursedItem, ProvidesRemoveCurse, ProvidesIdentification, StatusEffect, Duration, KnownSpells, SpellTemplate, WantsToCastSpell, TeachesSpell,
             ProvidesMana, Haste, Slow, SpecialAbilities, TileSize, OnDeath, AlwaysTargetsSelf,
-            Target, WantsToShoot, GameStats
+            Target, WantsToShoot, GameStats, AttributeBonus, EquipmentChanged
         );
     }
 

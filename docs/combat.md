@@ -10,7 +10,6 @@ HP
   - Monsters start with a specified dice roll based on their creature type. 
     - Example: a creature that can have 2d4+4 hp will have anywhere from 6 - 12 hp 
 MP
-Accuracy (100%)
 Evade
 Attacks
 - Unarmed

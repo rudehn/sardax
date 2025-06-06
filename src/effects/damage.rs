@@ -1,7 +1,7 @@
 use specs::prelude::*;
 use super::*;
 use crate::components::{Pools, Player, Burning, Paralysis, SerializeMe, Duration, StatusEffect, 
-    Name, Slow, Haste};
+    Name, Slow, Haste, EquipmentChanged};
 use crate::map::Map;
 use specs::saveload::{MarkedBuilder, SimpleMarker};
 
@@ -149,6 +149,19 @@ pub fn add_burning(ecs: &mut World, effect: &EffectSpawner, target: Entity) {
                     .build();
             }
         }
+    }
+}
+
+pub fn attribute_effect(ecs: &mut World, effect: &EffectSpawner, target: Entity) {
+    if let EffectType::AttributeEffect{bonus, name, duration} = &effect.effect_type {
+        ecs.create_entity()
+            .with(StatusEffect{ target })
+            .with(bonus.clone())
+            .with(Duration { turns : *duration, total_turns: *duration})
+            .with(Name { name : name.clone() })
+            .marked::<SimpleMarker<SerializeMe>>()
+            .build();
+        ecs.write_storage::<EquipmentChanged>().insert(target, EquipmentChanged{}).expect("Insert failed");
     }
 }
 
