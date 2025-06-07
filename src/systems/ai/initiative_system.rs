@@ -1,6 +1,6 @@
 use specs::prelude::*;
 use std::collections::HashSet;
-use crate::{Initiative, Slow, Haste, MyTurn, Position, RunState, StatusEffect, DEFAULT_ACTION_COST, MOVE_ACTION_COST, ATTACK_ACTION_COST};
+use crate::{Initiative, Slow, Haste, MyTurn, Position, RunState, StatusEffect};
 
 pub struct InitiativeSystem {}
 
@@ -58,23 +58,4 @@ impl<'a> System<'a> for InitiativeSystem {
             }
         }
     }
-}
-
-pub fn apply_move_action_cost(initiative: &mut Initiative) {
-    // Convert the multiplier so...
-    // - 50 takes 2x the action cost of the default 100. Ex 100 / .5 = 200
-    // - 75 takes 1.33 the action cost of the default 100. Ex 100 / .75 = 133
-    initiative.current -= (MOVE_ACTION_COST as f32 / initiative.move_action_mult).round() as i32;
-}
-
-
-pub fn apply_attack_action_cost(initiative: &mut Initiative) {
-    // Convert the multiplier so...
-    // - 50 takes 2x the action cost of the default 100. Ex 100 / .5 = 200
-    // - 75 takes 1.33 the action cost of the default 100. Ex 100 / .75 = 133
-    initiative.current -= (ATTACK_ACTION_COST as f32 / initiative.attack_action_mult).round() as i32;
-}
-
-pub fn apply_generic_action_cost(initiative: &mut Initiative) {
-    initiative.current -= DEFAULT_ACTION_COST;
 }

@@ -422,19 +422,11 @@ pub fn spawn_named_mob(raws: &RawMaster, ecs : &mut World, key : &str, pos : Spa
         // Initiative of -2 so they move behind the player on turn 1
         let mut initiative = Initiative{
             energy_gain: DEFAULT_ENERGY_GAIN,
-            attack_action_mult: 1.0,
-            move_action_mult: 1.0,
             current:-2
         };
         if let Some(energy) = mob_template.attributes.energy {
             initiative.energy_gain = energy;
         }
-        // if let Some(attack_cost) = mob_template.attributes.attack_action_mult {
-        //     initiative.attack_action_mult = attack_cost;
-        // }
-        // if let Some(move_cost) = mob_template.attributes.move_action_mult {
-        //     initiative.move_action_mult = move_cost;
-        // }
         eb = eb.with(initiative);
 
         // Renderable

@@ -2,7 +2,7 @@ use specs::prelude::*;
 use crate::{Map, Position, BlocksTile, ApplyMove, ApplyTeleport, OtherLevelPosition, EntityMoved,
     Viewshed, RunState, Initiative, };
 
-use super::ai::apply_move_action_cost;
+use crate::constants::DEFAULT_ACTION_COST;
 
 pub struct MovementSystem {}
 
@@ -49,8 +49,8 @@ impl<'a> System<'a> for MovementSystem {
         apply_teleport.clear();
 
         // Apply broad movement
-        for (entity, movement, pos, initiative) in (&entities, &apply_move, &mut position, &mut initiatives).join() {
-            apply_move_action_cost(initiative);
+        for (entity, movement, pos, initiative) in (&entities, &apply_move, &mut position, &mut initiatives).join() { 
+            initiative.current -= DEFAULT_ACTION_COST;
             let start_idx = map.xy_idx(pos.x, pos.y);
             let dest_idx = movement.dest_idx as usize;
             crate::spatial::move_entity(entity, start_idx, dest_idx);

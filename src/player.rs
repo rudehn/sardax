@@ -6,7 +6,7 @@ use super::{Position, Player, Viewshed, State, Map, RunState, Attributes, WantsT
     EntityMoved, Door, BlocksTile, BlocksVisibility, Renderable, Pools, Faction,
     raws::Reaction, Vendor, VendorMode, WantsToCastSpell, Target, Equipped, Weapon,
     WantsToShoot, Name, InBackpack, Initiative};
-use super::systems::ai::{apply_generic_action_cost, apply_move_action_cost};
+use crate::constants::DEFAULT_ACTION_COST;
 
 fn get_player_target_list(ecs : &mut World) -> Vec<(f32,Entity)> {
     let mut possible_targets : Vec<(f32,Entity)> = Vec::new();
@@ -166,9 +166,8 @@ pub fn try_move_player(delta_x: i32, delta_y: i32, ecs: &mut World) -> RunState 
                 let mut ppos = ecs.write_resource::<Point>();
                 ppos.x = pos.x;
                 ppos.y = pos.y;
-
-                apply_move_action_cost(initiative);
                 
+                initiative.current -= DEFAULT_ACTION_COST;
                 return Some(RunState::Ticking);
             } else {
                 let target = combat_stats.get(potential_target);
@@ -185,8 +184,8 @@ pub fn try_move_player(delta_x: i32, delta_y: i32, ecs: &mut World) -> RunState 
                 let glyph = renderables.get_mut(potential_target).unwrap();
                 glyph.glyph = rltk::to_cp437('/');
                 viewshed.dirty = true;
-                apply_generic_action_cost(initiative);
-
+                
+                initiative.current -= DEFAULT_ACTION_COST;
                 return Some(RunState::Ticking);
             }
             None
@@ -200,7 +199,7 @@ pub fn try_move_player(delta_x: i32, delta_y: i32, ecs: &mut World) -> RunState 
             let mut ppos = ecs.write_resource::<Point>();
             ppos.x = pos.x;
             ppos.y = pos.y;
-            apply_move_action_cost(initiative);
+            initiative.current -= DEFAULT_ACTION_COST;
             result = RunState::Ticking;
             match map.tiles[destination_idx] {
                 TileType::DownStairs => result = RunState::NextLevel,
@@ -283,7 +282,8 @@ fn get_item(ecs: &mut World) {
     let mut initiatives = ecs.write_storage::<Initiative>();
 
     let initiative = initiatives.get_mut(*player_entity).unwrap();
-    apply_generic_action_cost(initiative);
+    
+    initiative.current -= DEFAULT_ACTION_COST;
 
     let mut target_item : Option<Entity> = None;
     for (item_entity, _item, position) in (&entities, &items, &positions).join() {
@@ -309,7 +309,7 @@ fn skip_turn(ecs: &mut World) -> RunState {
     let worldmap_resource = ecs.fetch::<Map>();
 
     let initiative = initiatives.get_mut(*player_entity).unwrap();
-    apply_generic_action_cost(initiative);
+    initiative.current -= DEFAULT_ACTION_COST;
 
     let mut can_heal = true;
     let viewshed = viewshed_components.get(*player_entity).unwrap();

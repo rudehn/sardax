@@ -30,8 +30,6 @@ pub struct Mob {
 pub struct MobAttributes {
     pub strength: Option<i32>,
     pub energy: Option<i32>, // How many action points the creature recovers per per turn
-    // pub attack_action_mult: Option<f32>, // The creature's multiplier to the cost to perform an attack action
-    // pub move_action_mult: Option<f32>, // The creature's multiplier to the cost to perform a move action
 }
 
 

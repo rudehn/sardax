@@ -51,8 +51,6 @@ pub fn player(ecs : &mut World, player_x : i32, player_y : i32) -> Entity {
         .with(LightSource{ color: rltk::RGB::from_f32(1.0, 1.0, 1.0), range: 12 })
         .with(Initiative{
             energy_gain: DEFAULT_ENERGY_GAIN,
-            attack_action_mult: 1.0,
-            move_action_mult: 1.0,
             current: 0})
         .with(Faction{name : "Player".to_string() })
         .with(KnownSpells{ spells : Vec::new() })

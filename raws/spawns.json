@@ -772,8 +772,7 @@
         "movement" : "random",
         "health": "1d6",
         "attributes": {
-            "attack_action_mult": 1.0,
-            "move_action_mult": 1.0
+            "strength": 10
         },
         "equipped" : ["Dagger"],
         "faction" : "Enemies"

@@ -98,8 +98,6 @@ pub struct LightSource {
 #[derive(Component, Debug, Serialize, Deserialize, Clone)]
 pub struct Initiative {
     pub energy_gain: i32, // How many action points the creature recovers per per turn
-    pub attack_action_mult: f32, // The creature's multiplier to the cost to perform an attack action
-    pub move_action_mult: f32, // The creature's multiplier to the cost to perform a move action
     pub current : i32
 }
 

@@ -1,7 +1,7 @@
 use specs::prelude::*;
 use crate::{Skills, WantsToMelee, Name, Pools, Equipped, Weapon, EquipmentSlot,
     Wearable, NaturalAttackDefense, AttackEffect, effects::*, WantsToShoot,Initiative, Position, Map, Attributes};
-use super::ai::apply_attack_action_cost;
+use crate::constants::DEFAULT_ACTION_COST;
 use rltk::{to_cp437, RGB, Point};
 use crate::damage_system::get_evade_stat;
 
@@ -33,7 +33,7 @@ impl<'a> System<'a> for MeleeCombatSystem {
             if attacker_pools.hit_points.current > 0 && target_pools.hit_points.current > 0 {
                 let target_name = names.get(wants_melee.target).unwrap();
                 // All attacks, including multi attack, take the same amount of action cost
-                apply_attack_action_cost(attacker_initiative);
+                attacker_initiative.current -= DEFAULT_ACTION_COST;
 
                 // For melee combat, we have several scenarios to cover
                 // - The entity has 1 or more natual attacks (IE bite + claw + claw) and we want to roll all attacks
@@ -155,7 +155,7 @@ impl<'a> System<'a> for RangedCombatSystem {
             if attacker_pools.hit_points.current > 0 && target_pools.hit_points.current > 0 {
                 let target_name = names.get(wants_shoot.target).unwrap();
                 // All attacks, including multi attack, take the same amount of action cost
-                apply_attack_action_cost(attacker_initiative);
+                attacker_initiative.current -= DEFAULT_ACTION_COST;
 
                 // Fire projectile effect
                 let apos = positions.get(entity).unwrap();

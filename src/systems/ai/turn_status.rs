@@ -49,9 +49,7 @@ impl<'a> System<'a> for TurnStatusSystem {
         for e in not_my_turn {
             turns.remove(e);
             let initiative = initiatives.get(e);
-            // if let Some(mut initiative) = initiative {
-            //     apply_generic_action_cost(&mut initiative);
-            // }
+            // TODO - need to consume energy if the entity didn't do anything this turn
         }
     }
 }
