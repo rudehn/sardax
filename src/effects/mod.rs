@@ -12,6 +12,8 @@ mod hunger;
 mod movement;
 use rltk::Point;
 use crate::raws::spawn_natural_attack;
+mod status;
+use status::StatusEffect;
 
 lazy_static! {
     pub static ref EFFECT_QUEUE : Mutex<VecDeque<EffectSpawner>> = Mutex::new(VecDeque::new());
@@ -29,14 +31,11 @@ pub enum EffectType {
     WellFed,
     Healing { amount : i32 },
     Mana { amount : i32 },
-    Paralysis { turns : i32 },
-    Burning { turns: i32 },
     TriggerFire { trigger: Entity },
     TeleportTo { x:i32, y:i32, depth: i32, player_only : bool },
     AttributeEffect { bonus : AttributeBonus, name : String, duration : i32 },
-    Slow,
-    Haste,
     CreatesTunnel,
+    StatusEffect {effect: StatusEffect},
     NatAttack {effects: HashMap<String, EffectValues>}
 }
 
@@ -100,17 +99,15 @@ fn target_applicator(ecs : &mut World, effect : &mut EffectSpawner) {
 }
 
 fn tile_effect_hits_entities(effect: &EffectType) -> bool {
+    // Should the effect that's hitting this tile also effect any entities on the tile
     match effect {
         EffectType::Damage{..} => true,
         EffectType::WellFed => true,
         EffectType::Healing{..} => true,
         EffectType::Mana{..} => true,
-        EffectType::Paralysis{..} => true,
-        EffectType::Burning{..} => true,
         EffectType::TeleportTo{..} => true,
         EffectType::AttributeEffect{..} => true,
-        EffectType::Slow => true,
-        EffectType::Haste => true,
+        EffectType::StatusEffect{effect} => status::tile_status_effect_hits_entities(effect),
         _ => false
     }
 }
@@ -125,8 +122,6 @@ fn affect_tile(ecs: &mut World, effect: &mut EffectSpawner, tile_idx : i32) {
         EffectType::Bloodstain => damage::bloodstain(ecs, tile_idx),
         EffectType::Particle{..} => particles::particle_to_tile(ecs, tile_idx, &effect),
         EffectType::ParticleProjectile{..} => particles::projectile(ecs, tile_idx, &effect),
-        EffectType::Burning{..} => particles::create_fire(ecs, tile_idx, &effect),
-        EffectType::CreatesTunnel => particles::dig_out_tunnel(ecs, tile_idx, &effect),
         _ => {}
     }
 }
@@ -146,12 +141,9 @@ fn affect_entity(ecs: &mut World, effect: &mut EffectSpawner, target: Entity) {
         EffectType::WellFed => hunger::well_fed(ecs, effect, target),
         EffectType::Healing{..} => damage::heal_damage(ecs, effect, target),
         EffectType::Mana{..} => damage::restore_mana(ecs, effect, target),
-        EffectType::Paralysis{..} => damage::add_paralysis(ecs, effect, target),
-        EffectType::Burning{..} => damage::add_burning(ecs, effect, target),
         EffectType::TeleportTo{..} => movement::apply_teleport(ecs, effect, target),
         EffectType::AttributeEffect{..} => damage::attribute_effect(ecs, effect, target),
-        EffectType::Slow => damage::slow(ecs, effect, target),
-        EffectType::Haste => damage::haste(ecs, effect, target),
+        EffectType::StatusEffect { effect } => status::apply_status_effect(ecs, effect, target),
         _ => {}
     }
 }

@@ -13,7 +13,9 @@ Migrate enemy abilities to become fully spells
 - Spells should consume mana (enemies)??
 - How to prevent monster from spamming spells & running out of mana
 - How does a bigger AI refactor play in here?
-
+Rename burning component to burn
+Combine turn status & turn end systems
+combine the inflicts{Burn,stun} into one component
 
 
 
@@ -61,5 +63,3 @@ add encumbrance system back in
 
 Add stats back in to hud + tooltip
 * https://github.com/rudehn/rust-roguelike/commit/e539e483833454e8ec9489810455786467d82a3e#diff-e1a0acfc064fa0cbe59092b9ac5e00a8b597846bd5a62fc27a00e76f37c2ab74L8-L10
-
-* Handle bug in cycling targets when only 1 target is available

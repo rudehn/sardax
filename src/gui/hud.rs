@@ -1,9 +1,9 @@
 use rltk::prelude::*;
 use specs::prelude::*;
-use crate::{gamelog, Consumable, Duration, Equipped, HungerClock, HungerState, InBackpack, KnownSpells, Map, Name, Pools, Renderable, StatusEffect, Weapon, Paralysis, Burning, Slow, Haste };
+use crate::{gamelog, Consumable, Duration, Equipped, HungerClock, HungerState, InBackpack, KnownSpells, Map, Name, Pools, Renderable, StatusEffect, Weapon, Stun, Burn, Slow, Haste };
 use super::{draw_tooltips, get_item_display_name, get_item_color};
 use crate::vision::get_characters_in_vision;
-use crate::constants::{LEFT_PANEL_WIDTH, PANEL_PADDING, MAP_WIDTH, SCREEN_HEIGHT, STATUS_BURNING_COLOR, STATUS_GENERIC_COLOR, STATUS_HASTE_COLOR, STATUS_PARALYSIS_COLOR, STATUS_SLOW_COLOR};
+use crate::constants::{LEFT_PANEL_WIDTH, PANEL_PADDING, MAP_WIDTH, SCREEN_HEIGHT, STATUS_BURN_COLOR, STATUS_GENERIC_COLOR, STATUS_HASTE_COLOR, STATUS_STUN_COLOR, STATUS_SLOW_COLOR};
 
 
 pub fn draw_bar_horizontal(
@@ -233,8 +233,8 @@ fn draw_entity_in_view(ecs: &World, draw_batch: &mut DrawBatch, entity: &Entity,
     let pools = ecs.read_storage::<Pools>();
     let statuses = ecs.read_storage::<StatusEffect>();
     let durations = ecs.read_storage::<Duration>();
-    let paralysis = ecs.read_storage::<Paralysis>();
-    let burning = ecs.read_storage::<Burning>();
+    let stun = ecs.read_storage::<Stun>();
+    let burning = ecs.read_storage::<Burn>();
     let slow = ecs.read_storage::<Slow>();
     let haste = ecs.read_storage::<Haste>();
     let entities = ecs.entities();
@@ -281,10 +281,10 @@ fn draw_entity_in_view(ecs: &World, draw_batch: &mut DrawBatch, entity: &Entity,
     // TODO - optimize, can we call in entities function & pass in hashmap?
     for (status_entity, status, duration, name) in (&entities, &statuses, &durations, &names).join() {
         let mut color = STATUS_GENERIC_COLOR;
-        if let Some(_para) = paralysis.get(status_entity){
-            color = STATUS_PARALYSIS_COLOR;
+        if let Some(_stun) = stun.get(status_entity){
+            color = STATUS_STUN_COLOR;
         } else if let Some(_burn) = burning.get(status_entity) {
-            color = STATUS_BURNING_COLOR;
+            color = STATUS_BURN_COLOR;
         } else if let Some(_slow) = slow.get(status_entity) {
             color = STATUS_SLOW_COLOR;
         } else if let Some(_haste) = haste.get(status_entity) {

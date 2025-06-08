@@ -283,20 +283,16 @@ pub struct AreaOfEffect {
 
 
 #[derive(Component, Debug, Serialize, Deserialize, Clone)]
-pub struct InflictsParalysis {
-    pub turns: i32
-}
+pub struct InflictsStun {}
 
 #[derive(Component, Debug, Serialize, Deserialize, Clone)]
-pub struct Paralysis {}
+pub struct Stun {}
 
 #[derive(Component, Debug, Serialize, Deserialize, Clone)]
-pub struct InflictsBurning {
-    pub turns: i32
-}
+pub struct InflictsBurn {}
 
 #[derive(Component, Debug, Serialize, Deserialize, Clone)]
-pub struct Burning {}
+pub struct Burn {}
 
 
 #[derive(Component, Debug, Serialize, Deserialize, Clone)]

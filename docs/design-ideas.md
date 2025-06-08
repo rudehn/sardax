@@ -2,12 +2,6 @@
 
 TileSet - https://en.wikipedia.org/wiki/Code_page_437
 
-## Basic Game Play Loop
-* Win condition
-  - Go down through the dungeon to retrieve the amulet on level 10 and return up the floors and out the dungeon entrance
-  - If you die, game over
-* Progression
-  - Enemies will get stronger over time, so the character will also get stronger through equipment, spells and stat increases
 
 * Map generation
 * Mobs
@@ -158,19 +152,3 @@ Ideas:
   - trapped - can't move
   - invisible - can't be seen
   - Webbed - slowed/stopped for x turns
-
-
-Converting DND armor stats into this game
-
-Leather armor AC = 1
-Weight: 10
-
-head: 15%
-torso: 40%
-legs: 25%
-feet: 10%
-hands: 10%
-
-
-https://github.com/jice-nospam/doryen-rs/tree/master/docs/demo
-https://github.com/Alvarz/Roguelike-Rust/tree/master/src

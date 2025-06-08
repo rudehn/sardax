@@ -52,7 +52,7 @@ pub fn save_game(ecs : &mut World) {
         let mut serializer = serde_json::Serializer::new(writer);
         serialize_individually!(ecs, serializer, data, Position, Renderable, Player, Viewshed,
             Name, BlocksTile, WantsToAttack, Item, Consumable, Ranged, InflictsDamage,
-            AreaOfEffect, Paralysis, InflictsParalysis, CreatesTunnel, Burning, InflictsBurning, ProvidesHealing, InBackpack, WantsToPickupItem, WantsToUseItem,
+            AreaOfEffect, Stun, InflictsStun, CreatesTunnel, Burn, InflictsBurn, ProvidesHealing, InBackpack, WantsToPickupItem, WantsToUseItem,
             WantsToDropItem, SerializationHelper, Equippable, Equipped, Weapon, Wearable,
             WantsToRemoveItem, ParticleLifetime, HungerClock, ProvidesFood, MagicMapper, Hidden,
             EntryTrigger, EntityMoved, SingleActivation, BlocksVisibility, Door,
@@ -110,7 +110,7 @@ pub fn load_game(ecs: &mut World) {
 
         deserialize_individually!(ecs, de, d, Position, Renderable, Player, Viewshed,
             Name, BlocksTile, WantsToAttack, Item, Consumable, Ranged, InflictsDamage,
-            AreaOfEffect, Paralysis, InflictsParalysis, CreatesTunnel, Burning, InflictsBurning, ProvidesHealing, InBackpack, WantsToPickupItem, WantsToUseItem,
+            AreaOfEffect, Stun, InflictsStun, CreatesTunnel, Burn, InflictsBurn, ProvidesHealing, InBackpack, WantsToPickupItem, WantsToUseItem,
             WantsToDropItem, SerializationHelper, Equippable, Equipped, Weapon, Wearable,
             WantsToRemoveItem, ParticleLifetime, HungerClock, ProvidesFood, MagicMapper, Hidden,
             EntryTrigger, EntityMoved, SingleActivation, BlocksVisibility, Door,

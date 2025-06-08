@@ -1,7 +1,7 @@
 use specs::prelude::*;
 use super::*;
-use crate::components::{Pools, Player, Burning, Paralysis, SerializeMe, Duration, StatusEffect, 
-    Name, Slow, Haste, EquipmentChanged};
+use crate::components::{Pools, Player, SerializeMe, Duration, StatusEffect, 
+    Name, EquipmentChanged};
 use crate::map::Map;
 use specs::saveload::{MarkedBuilder, SimpleMarker};
 
@@ -108,50 +108,6 @@ pub fn restore_mana(ecs: &mut World, mana: &EffectSpawner, target: Entity) {
     }
 }
 
-pub fn add_paralysis(ecs: &mut World, effect: &EffectSpawner, target: Entity) {
-    if let EffectType::Paralysis{turns} = &effect.effect_type {
-        ecs.create_entity()
-            .with(StatusEffect{ target })
-            .with(Paralysis{})
-            .with(Duration{turns : *turns, total_turns: *turns})
-            .with(Name{ name : "Paralysis".to_string() })
-            .marked::<SimpleMarker<SerializeMe>>()
-            .build();
-    }
-}
-
-
-pub fn add_burning(ecs: &mut World, effect: &EffectSpawner, target: Entity) {
-    if let EffectType::Burning{turns} = &effect.effect_type {
-        // If the target is currently burning, just reset the duration counter
-        let mut found_status = false;
-
-        {
-            let mut durations = ecs.write_storage::<Duration>();
-            let status_effect = ecs.read_storage::<StatusEffect>();
-            let burning = ecs.read_storage::<Burning>();
-            for (effect, _burn, duration) in (&status_effect, &burning, &mut durations).join() {
-                if effect.target == target {
-                    found_status = true;
-                    duration.turns = *turns;
-                    break;
-                }
-            }
-        }
-        if !found_status {
-            {
-                ecs.create_entity()
-                    .with(StatusEffect{ target })
-                    .with(Burning{})
-                    .with(Duration{ turns : *turns, total_turns: *turns})
-                    .with(Name{ name : "Burning".to_string() })
-                    .marked::<SimpleMarker<SerializeMe>>()
-                    .build();
-            }
-        }
-    }
-}
-
 pub fn attribute_effect(ecs: &mut World, effect: &EffectSpawner, target: Entity) {
     if let EffectType::AttributeEffect{bonus, name, duration} = &effect.effect_type {
         ecs.create_entity()
@@ -162,104 +118,5 @@ pub fn attribute_effect(ecs: &mut World, effect: &EffectSpawner, target: Entity)
             .marked::<SimpleMarker<SerializeMe>>()
             .build();
         ecs.write_storage::<EquipmentChanged>().insert(target, EquipmentChanged{}).expect("Insert failed");
-    }
-}
-
-pub fn slow(ecs: &mut World, effect: &EffectSpawner, target: Entity) {
-    if let EffectType::Slow = &effect.effect_type {
-        let slow_duration = 5;
-
-        let mut found_status = false;
-        let mut entities_to_delete : Vec<Entity> = Vec::new();
-        {
-            let mut durations = ecs.write_storage::<Duration>();
-            let status_effect = ecs.read_storage::<StatusEffect>();
-            let slowed = ecs.read_storage::<Slow>();
-            let hasted = ecs.read_storage::<Haste>();
-            let entities = ecs.entities();
-
-            
-            for (entity, effect, slow, haste, duration) in (&entities, &status_effect, (&slowed).maybe(), (&hasted).maybe(), &mut durations).join() {
-                
-                // If the target is currently hasted, cancel out the status effect
-                if let Some(_haste) = haste {
-                    entities_to_delete.push(entity);
-                    found_status = true;
-                    break;
-                }
-                // If the target is currently slowed, just reset the duration counter
-                if let Some(_slow) = slow {
-                    if effect.target == target {
-                        found_status = true;
-                        duration.turns = slow_duration;
-                        break;
-                    }
-                }
-            }
-        }
-        
-        for entity in entities_to_delete {
-            ecs.delete_entity(entity).expect("Unable to delete");
-        }
-
-        if !found_status{
-            ecs.create_entity()
-                .with(StatusEffect{ target })
-                .with(Slow{})
-                .with(Duration{ turns : slow_duration, total_turns: slow_duration})
-                .with(Name{ name : "Slowed".to_string() })
-                .marked::<SimpleMarker<SerializeMe>>()
-                .build();
-        }
-    }
-}
-
-pub fn haste(ecs: &mut World, effect: &EffectSpawner, target: Entity) {
-    // Haste will cancel out any slow status effect on the entity
-    if let EffectType::Haste = &effect.effect_type {
-        let haste_duration = 5;
-
-        let mut found_status = false;
-        let mut entities_to_delete : Vec<Entity> = Vec::new();
-        {
-            let mut durations = ecs.write_storage::<Duration>();
-            let status_effect = ecs.read_storage::<StatusEffect>();
-            let slowed = ecs.read_storage::<Slow>();
-            let hasted = ecs.read_storage::<Haste>();
-            let entities = ecs.entities();
-
-            
-            for (entity, effect, slow, haste, duration) in (&entities, &status_effect, (&slowed).maybe(), (&hasted).maybe(), &mut durations).join() {
-                
-                // If the target is currently slowed, cancel out the status effect
-                if let Some(_slow) = slow {
-                    entities_to_delete.push(entity);
-                    found_status = true;
-                    break;
-                }
-                // If the target is currently hasted, just reset the duration counter
-                if let Some(_haste) = haste {
-                    if effect.target == target {
-                        found_status = true;
-                        duration.turns = haste_duration;
-                        break;
-                    }
-                }
-            }
-        }
-        
-        for entity in entities_to_delete {
-            ecs.delete_entity(entity).expect("Unable to delete");
-        }
-
-        if !found_status{
-            ecs.create_entity()
-                .with(StatusEffect{ target })
-                .with(Haste{})
-                .with(Duration{ turns : haste_duration, total_turns: haste_duration})
-                .with(Name{ name : "Hasted".to_string() })
-                .marked::<SimpleMarker<SerializeMe>>()
-                .build();
-        }
     }
 }

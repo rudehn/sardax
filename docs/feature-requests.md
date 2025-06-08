@@ -35,6 +35,14 @@
 - Enemies that target the weakest creature
 - Make all player spells rechargeable
 - Limit spell slots
+- Knockback effect
+  - should be a strength contest between attacker and defender
+  - Apply a Momentum component to an actor.
+    - momentum should consider attacker's strength score + defenders mass + equipment weight
+  - Create a new momentum system to handle velocity & collisions
+    - apply effect on collision with wall?
+
+  
 
 
 Create AI for determining which spells to cast and where to cast them

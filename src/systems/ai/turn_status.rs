@@ -1,5 +1,5 @@
 use specs::prelude::*;
-use crate::{MyTurn, Paralysis, Initiative, RunState, StatusEffect, effects::add_effect, effects::EffectType, effects::Targets};
+use crate::{MyTurn, Stun, Initiative, RunState, StatusEffect, effects::add_effect, effects::EffectType, effects::Targets};
 use std::collections::HashSet;
 
 pub struct TurnStatusSystem {}
@@ -7,7 +7,7 @@ pub struct TurnStatusSystem {}
 impl<'a> System<'a> for TurnStatusSystem {
     #[allow(clippy::type_complexity)]
     type SystemData = ( WriteStorage<'a, MyTurn>,
-                        ReadStorage<'a, Paralysis>,
+                        ReadStorage<'a, Stun>,
                         Entities<'a>,
                         ReadExpect<'a, RunState>,
                         ReadStorage<'a, StatusEffect>,
@@ -15,7 +15,7 @@ impl<'a> System<'a> for TurnStatusSystem {
                     );
 
     fn run(&mut self, data : Self::SystemData) {
-        let (mut turns, paralysis, entities, runstate, statuses, initiatives) = data;
+        let (mut turns, stun, entities, runstate, statuses, initiatives) = data;
 
         if *runstate != RunState::Ticking { return; }
 
@@ -29,8 +29,8 @@ impl<'a> System<'a> for TurnStatusSystem {
         let mut not_my_turn : Vec<Entity> = Vec::new();
         for (effect_entity, status_effect) in (&entities, &statuses).join() {
             if entity_turns.contains(&status_effect.target) {
-                // Skip turn for paralysis
-                if paralysis.get(effect_entity).is_some() {
+                // Skip turn for stun
+                if stun.get(effect_entity).is_some() {
                     add_effect(
                         None, 
                         EffectType::Particle{

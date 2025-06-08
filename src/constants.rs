@@ -18,8 +18,8 @@ pub const AMULET_LEVEL: i32 = 10;
 
 // Colors for consistent UI displaying status effects
 pub const STATUS_GENERIC_COLOR: (u8, u8, u8) = BLUE;
-pub const STATUS_PARALYSIS_COLOR: (u8, u8, u8) = YELLOW;
-pub const STATUS_BURNING_COLOR: (u8, u8, u8) = ORANGE;
+pub const STATUS_STUN_COLOR: (u8, u8, u8) = YELLOW;
+pub const STATUS_BURN_COLOR: (u8, u8, u8) = ORANGE;
 pub const STATUS_HASTE_COLOR: (u8, u8, u8) = GREEN;
 pub const STATUS_SLOW_COLOR: (u8, u8, u8) = PURPLE;
 

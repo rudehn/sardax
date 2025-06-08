@@ -116,7 +116,7 @@
         "magic" : { "class" : "common", "naming" : "potion" }
     },
     {
-        "name" : "Paralysis Scroll",
+        "name" : "Stun Scroll",
         "renderable": {
             "glyph" : ")",
             "fg" : "#FFAAAA",
@@ -125,7 +125,7 @@
         "consumable" : {
             "effects" : { 
                 "ranged" : {"amount": 6},
-                "paralysis" : {"duration": 4}
+                "stun" : {}
             }
         },
         "weight_lbs" : 0.5,
@@ -737,7 +737,7 @@
         "consumable" : {
             "effects" : { 
                 "ranged" : {"amount": 6},
-                "burning" : {},
+                "burn" : {},
                 "area_of_effect" : {"amount": 1},
                 "particle" : {"value": "▓;#FFA500;200.0"}
             },
@@ -912,7 +912,7 @@
         },
         "entry_trigger" : {
             "effects" : {
-                "burning": {},
+                "burn": {},
                 "duration": {"amount": 4}
             }
         }
@@ -965,11 +965,11 @@
     },
 
     {
-        "name" : "ParalysisCloud",
+        "name" : "StunCloud",
         "mana_cost" : 1,
         "effects" : {
             "ranged" : {"amount": 3},
-            "paralysis" : {"duration": 4},
+            "stun" : {},
             "area_of_effect" : {"amount": 3},
             "particle" : {"value": "?;#FFFF00;400.0"},
             "single_activation" : {},

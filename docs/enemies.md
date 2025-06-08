@@ -1,6 +1,8 @@
 # Proposed types of enemies
 * Goblins - low attack, low hp
 * Orcs - high attack, medium hp
+* Ogre - knockback or stun
+* Giant - stun or knockback
 * Lizardmen - very high attack, low hp
 * Troll - high attack, very high hp, regenerates, slow
 * Dragon

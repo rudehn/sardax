@@ -493,10 +493,10 @@ fn main() -> rltk::BError {
     gs.ecs.register::<WantsToPickupItem>();
     gs.ecs.register::<WantsToUseItem>();
     gs.ecs.register::<WantsToDropItem>();
-    gs.ecs.register::<Paralysis>();
-    gs.ecs.register::<InflictsParalysis>();
-    gs.ecs.register::<Burning>();
-    gs.ecs.register::<InflictsBurning>();
+    gs.ecs.register::<Stun>();
+    gs.ecs.register::<InflictsStun>();
+    gs.ecs.register::<Burn>();
+    gs.ecs.register::<InflictsBurn>();
     gs.ecs.register::<CreatesTunnel>();
     gs.ecs.register::<SimpleMarker<SerializeMe>>();
     gs.ecs.register::<SerializationHelper>();

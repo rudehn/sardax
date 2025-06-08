@@ -1,6 +1,6 @@
 use specs::prelude::*;
 use crate::constants::TICKS_PER_TURN;
-use crate::{RunState, GameStats, StatusEffect, Burning, Duration};
+use crate::{RunState, GameStats, StatusEffect, Burn, Duration};
 
 // Handles all processing/cleanup at the end of a turn
 
@@ -14,7 +14,7 @@ impl<'a> System<'a> for TurnEndSystem {
                         Entities<'a>,
                         WriteStorage<'a, Duration>,
                         ReadStorage<'a, StatusEffect>,
-                        ReadStorage<'a, Burning>
+                        ReadStorage<'a, Burn>
                     );
 
     fn run(&mut self, data : Self::SystemData) {

@@ -191,15 +191,15 @@ fn event_trigger(creator : Option<Entity>, entity: Entity, targets : &Targets, e
         did_something = true;
     }
 
-    // Paralysis
-    if let Some(paralysis) = ecs.read_storage::<InflictsParalysis>().get(entity) {
-        add_effect(creator, EffectType::Paralysis{ turns : paralysis.turns }, targets.clone());
+    // Stun
+    if let Some(stun) = ecs.read_storage::<InflictsStun>().get(entity) {
+        add_effect(creator, EffectType::StatusEffect{effect: status::StatusEffect::Stun}, targets.clone());
         did_something = true;
     }
 
     // Burning
-    if let Some(burning) = ecs.read_storage::<InflictsBurning>().get(entity) {
-        add_effect(creator, EffectType::Burning{ turns : burning.turns }, targets.clone());
+    if let Some(burning) = ecs.read_storage::<InflictsBurn>().get(entity) {
+        add_effect(creator, EffectType::StatusEffect{effect: status::StatusEffect::Burn}, targets.clone());
         did_something = true;
     }
 
@@ -249,14 +249,14 @@ fn event_trigger(creator : Option<Entity>, entity: Entity, targets : &Targets, e
     }
 
     // Slow
-    if let Some(slow) = ecs.read_storage::<Slow>().get(entity) {
-        add_effect(creator, EffectType::Slow, targets.clone());
+    if let Some(_slow) = ecs.read_storage::<Slow>().get(entity) {
+        add_effect(creator, EffectType::StatusEffect{effect: status::StatusEffect::Slow}, targets.clone());
         did_something = true;
     }
     
     // Haste
-    if let Some(haste) = ecs.read_storage::<Haste>().get(entity) {
-        add_effect(creator, EffectType::Haste, targets.clone());
+    if let Some(_haste) = ecs.read_storage::<Haste>().get(entity) {
+        add_effect(creator, EffectType::StatusEffect{effect: status::StatusEffect::Haste}, targets.clone());
         did_something = true;
     }
 
