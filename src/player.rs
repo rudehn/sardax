@@ -91,24 +91,20 @@ fn cycle_target(ecs: &mut World) {
         current_target = Some(e);
     }
     
-    targets.clear();
     if let Some(current_target) = current_target {
-        println!("possible targets len {}", possible_targets.len());
-        if !possible_targets.len() > 1 {
+        if possible_targets.len() > 1 {
+            targets.clear();
             let mut index = 0;
             for (i, target) in possible_targets.iter().enumerate() {
                 if target.1 == current_target {
                     index = i;
                 }
             }
-            // TODO - revisit this logic for handling only a single target
             if index > possible_targets.len().saturating_sub(2) {
                 targets.insert(possible_targets[0].1, Target{}).expect("Insert fail");
             } else {
                 targets.insert(possible_targets[index+1].1, Target{}).expect("Insert fail");
             }
-            
-            println!("done");
         }
     }
 }
