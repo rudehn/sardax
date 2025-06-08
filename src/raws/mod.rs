@@ -12,6 +12,7 @@ mod faction_structs;
 pub use faction_structs::*;
 mod spell_structs;
 pub use spell_structs::Spell;
+pub mod rex_assets;
 
 mod rawmaster;
 pub use rawmaster::*;

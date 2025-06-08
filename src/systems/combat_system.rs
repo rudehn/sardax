@@ -35,6 +35,9 @@ impl<'a> System<'a> for MeleeCombatSystem {
                 // All attacks, including multi attack, take the same amount of action cost
                 attacker_initiative.current -= DEFAULT_ACTION_COST;
 
+                // Calculate damage bonus from strength score
+                let str_bonus = attacker_attributes.strength.bonus;
+
                 // For melee combat, we have several scenarios to cover
                 // - The entity has 1 or more natual attacks (IE bite + claw + claw) and we want to roll all attacks
                 // - The entity is unarmed - use the default 1d4 unarmed attack
@@ -72,10 +75,7 @@ impl<'a> System<'a> for MeleeCombatSystem {
                         if hit_chance < 100 - evade_chance {
                             // Target hit!
                             let base_damage = crate::rng::roll_dice(weapon_info.damage_n_dice, weapon_info.damage_die_type);
-                            let damage = i32::max(0, base_damage + weapon_info.damage_bonus);
-                            // println!("Damage: {} + {}weapon = {}",
-                            //     base_damage, weapon_damage_bonus, damage
-                            // );
+                            let damage = i32::max(0, base_damage + str_bonus + weapon_info.damage_bonus);
                             do_attack_hit(&entity, &wants_melee.target, &name, &target_name, damage, &attack.name);
                             // Trigger any proc effects from natural attacks
                             if let Some(effects) = &attack.effect{
@@ -106,10 +106,7 @@ impl<'a> System<'a> for MeleeCombatSystem {
                     if hit_chance < 100 - evade_chance {
                         // Target hit!
                         let base_damage = crate::rng::roll_dice(weapon_info.damage_n_dice, weapon_info.damage_die_type);
-                        let damage = i32::max(0, base_damage + weapon_info.damage_bonus);
-                        // println!("Damage: {} + {}weapon = {}",
-                        //     base_damage, weapon_damage_bonus, damage
-                        // );
+                        let damage = i32::max(0, base_damage + str_bonus + weapon_info.damage_bonus);
                         do_attack_hit(&entity, &wants_melee.target, &name, &target_name, damage, "attacks");
                         // Proc effects
                         trigger_proc_effects(&entity, &wants_melee.target, &weapon_info, weapon_entity);
@@ -156,6 +153,7 @@ impl<'a> System<'a> for RangedCombatSystem {
                 let target_name = names.get(wants_shoot.target).unwrap();
                 // All attacks, including multi attack, take the same amount of action cost
                 attacker_initiative.current -= DEFAULT_ACTION_COST;
+                let str_bonus = attacker_attributes.strength.bonus;
 
                 // Fire projectile effect
                 let apos = positions.get(entity).unwrap();
@@ -224,7 +222,7 @@ impl<'a> System<'a> for RangedCombatSystem {
                 if hit_chance < 100 - evade_chance {
                     // Target hit!
                     let base_damage = crate::rng::roll_dice(weapon_info.damage_n_dice, weapon_info.damage_die_type);
-                    let damage = i32::max(0, base_damage + weapon_info.damage_bonus);
+                    let damage = i32::max(0, base_damage + str_bonus + weapon_info.damage_bonus);
                     do_attack_hit(&entity, &wants_shoot.target, &name, &target_name, damage, "shoots");
                     // Proc effects
                     trigger_proc_effects(&entity, &wants_shoot.target, &weapon_info, weapon_entity);

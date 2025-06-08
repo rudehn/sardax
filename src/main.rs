@@ -16,7 +16,6 @@ mod gamelog;
 mod spawner;
 pub mod saveload_system;
 pub mod random_table;
-pub mod rex_assets;
 pub mod map_builders;
 pub mod raws;
 pub mod effects;
@@ -28,6 +27,7 @@ pub mod spatial;
 pub mod vision;
 mod combat;
 pub use combat::*;
+pub use raws::rex_assets;
 
 
 #[derive(PartialEq, Copy, Clone)]

@@ -1,6 +1,6 @@
 use specs::prelude::*;
 use crate::components::{Pools, Player, Name, Position,
-    InBackpack, Equipped, LootTable, Attributes};
+    InBackpack, Equipped, LootTable};
 use crate::RunState;
 
 
