@@ -5,7 +5,8 @@
     { "name" : "Health Potion", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
     { "name" : "Beginner's Magic", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
     { "name" : "Magic Mapping Scroll", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
-    { "name" : "Rod of Fireballs", "weight" : 10, "min_depth" : 1, "max_depth" : 26}
+    { "name" : "Rod of Fireballs", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
+    { "name" : "Shortbow", "weight" : 100, "min_depth" : 1, "max_depth" : 26}
 ],
 
 "loot_tables" : [

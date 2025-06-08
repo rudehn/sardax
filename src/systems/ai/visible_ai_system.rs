@@ -1,7 +1,7 @@
 use specs::prelude::*;
 use crate::{MyTurn, Faction, Position, Map, raws::Reaction, Viewshed, WantsToFlee,
     WantsToApproach, Chasing, SpecialAbilities, WantsToCastSpell, Name, SpellTemplate,
-    Equipped, Weapon, WantsToShoot};
+    Equipped, Weapon, WantsToAttack, AttackType};
 
 pub struct VisibleAI {}
 
@@ -24,13 +24,13 @@ impl<'a> System<'a> for VisibleAI {
         ReadStorage<'a, SpellTemplate>,
         ReadStorage<'a, Equipped>,
         ReadStorage<'a, Weapon>,
-        WriteStorage<'a, WantsToShoot>
+        WriteStorage<'a, WantsToAttack>
     );
 
     fn run(&mut self, data : Self::SystemData) {
         let (turns, factions, positions, map, mut want_approach, mut want_flee, entities, player,
             viewsheds, mut chasing, abilities, mut casting, names, spells,
-            equipped, weapons, mut wants_shoot) = data;
+            equipped, weapons, mut wants_attack) = data;
 
         for (entity, _turn, my_faction, pos, viewshed) in (&entities, &turns, &factions, &positions, &viewsheds).join() {
             if entity != *player {
@@ -78,7 +78,7 @@ impl<'a> System<'a> for VisibleAI {
                                             //rltk::console::log(format!("Owner found. Ranges: {}/{}", wrange, range));
                                             if wrange >= range as i32 {
                                                 //rltk::console::log("Inserting shoot");
-                                                wants_shoot.insert(entity, WantsToShoot{ target: reaction.2 }).expect("Insert fail");
+                                                wants_attack.insert(entity, WantsToAttack{ target: reaction.2, attack_type: AttackType::Ranged }).expect("Insert fail");
                                                 done = true;
                                             }
                                         }

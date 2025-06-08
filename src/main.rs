@@ -482,7 +482,7 @@ fn main() -> rltk::BError {
     gs.ecs.register::<Viewshed>();
     gs.ecs.register::<Name>();
     gs.ecs.register::<BlocksTile>();
-    gs.ecs.register::<WantsToMelee>();
+    gs.ecs.register::<WantsToAttack>();
     gs.ecs.register::<Item>();
     gs.ecs.register::<ProvidesHealing>();
     gs.ecs.register::<InflictsDamage>();
@@ -558,7 +558,6 @@ fn main() -> rltk::BError {
     gs.ecs.register::<OnDeath>();
     gs.ecs.register::<AlwaysTargetsSelf>();
     gs.ecs.register::<Target>();
-    gs.ecs.register::<WantsToShoot>();
     gs.ecs.register::<GameStats>();
     gs.ecs.insert(SimpleMarkerAllocator::<SerializeMe>::new());
     gs.ecs.register::<AttributeBonus>();

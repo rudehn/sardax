@@ -97,10 +97,10 @@ fn equipped(ecs: &World, draw_batch: &mut DrawBatch, player_entity: &Entity) -> 
     for (entity, equipped_by) in (&entities, &equipped).join() {
         if equipped_by.owner == *player_entity {
             let name = get_item_display_name(ecs, entity);
-            draw_batch.print_color(
-                Point::new(1, y), 
-                &name,
-                ColorPair::new(get_item_color(ecs, entity), black));
+            // draw_batch.print_color(
+            //     Point::new(1, y), 
+            //     &name,
+            //     ColorPair::new(get_item_color(ecs, entity), black));
             y += 1;
 
             if let Some(weapon) = weapon.get(entity) {
@@ -116,8 +116,9 @@ fn equipped(ecs: &World, draw_batch: &mut DrawBatch, player_entity: &Entity) -> 
                     weapon_info += &format!(" (range: {}, F to fire, V cycle targets)", range);
                 }
                 weapon_info += " ├";
+                let xpos = LEFT_PANEL_WIDTH + (MAP_WIDTH / 2) as i32 - (weapon_info.len() / 2) as i32;
                 draw_batch.print_color(
-                    Point::new(3, 55),
+                    Point::new(xpos, SCREEN_HEIGHT - 1),
                     &weapon_info,
                     ColorPair::new(yellow, black));
             }
@@ -328,7 +329,7 @@ pub fn draw_ui(ecs: &World, ctx : &mut Rltk) {
     map_label(ecs, &mut draw_batch);
     // draw_stats(ecs, &mut draw_batch, &player_entity);
     entities(ecs, &mut draw_batch, &player_entity);
-    // let mut y = equipped(ecs, &mut draw_batch, &player_entity);
+    let mut y = equipped(ecs, &mut draw_batch, &player_entity);
     // y += consumables(ecs, &mut draw_batch, &player_entity, y);
     // spells(ecs, &mut draw_batch, &player_entity, y);
     // status(ecs, &mut draw_batch, &player_entity);

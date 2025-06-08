@@ -13,7 +13,7 @@ use movement_system::MovementSystem;
 mod trigger_system;
 use trigger_system::TriggerSystem;
 mod combat_system;
-use combat_system::{MeleeCombatSystem, RangedCombatSystem};
+use combat_system::CombatSystem;
 mod inventory_system;
 use inventory_system::*;
 mod hunger_system;

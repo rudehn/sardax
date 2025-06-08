@@ -216,14 +216,15 @@ pub struct Skills {
     pub skills : HashMap<Skill, i32>
 }
 
-#[derive(Component, Debug, ConvertSaveload, Clone)]
-pub struct WantsToMelee {
-    pub target : Entity
-}
+
+#[derive(Debug, Serialize, Deserialize, Clone, Eq, PartialEq, Hash)]
+pub enum AttackType {Melee, Ranged}
+
 
 #[derive(Component, Debug, ConvertSaveload, Clone)]
-pub struct WantsToShoot {
-    pub target : Entity
+pub struct WantsToAttack {
+    pub target : Entity,
+    pub attack_type: AttackType
 }
 
 #[derive(Component, Debug, ConvertSaveload, Clone)]

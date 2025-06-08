@@ -1,11 +1,11 @@
 use rltk::{VirtualKeyCode, Rltk, Point};
 use specs::prelude::*;
 use std::cmp::{max, min};
-use super::{Position, Player, Viewshed, State, Map, RunState, Attributes, WantsToMelee, Item,
+use super::{Position, Player, Viewshed, State, Map, RunState, Attributes, WantsToAttack, Item,
     WantsToPickupItem, TileType, HungerClock, HungerState,
     EntityMoved, Door, BlocksTile, BlocksVisibility, Renderable, Pools, Faction,
     raws::Reaction, Vendor, VendorMode, WantsToCastSpell, Target, Equipped, Weapon,
-    WantsToShoot, Name, InBackpack, Initiative};
+    Name, InBackpack, Initiative, AttackType};
 use crate::constants::DEFAULT_ACTION_COST;
 
 fn get_player_target_list(ecs : &mut World) -> Vec<(f32,Entity)> {
@@ -63,7 +63,7 @@ fn fire_on_target(ecs: &mut World) -> RunState {
 
     if let Some(target) = current_target {
         let player_entity = ecs.fetch::<Entity>();
-        let mut shoot_store = ecs.write_storage::<WantsToShoot>();
+        let mut wants_to_attack = ecs.write_storage::<WantsToAttack>();
         let names = ecs.read_storage::<Name>();
         if let Some(name) = names.get(target) {
             crate::gamelog::Logger::new()
@@ -72,7 +72,7 @@ fn fire_on_target(ecs: &mut World) -> RunState {
                 .append(&name.name)
                 .log();
         }
-        shoot_store.insert(*player_entity, WantsToShoot{ target }).expect("Insert Fail");
+        wants_to_attack.insert(*player_entity, WantsToAttack{ target, attack_type: AttackType::Ranged }).expect("Insert Fail");
 
         RunState::Ticking
     } else {
@@ -87,13 +87,13 @@ fn cycle_target(ecs: &mut World) {
     let mut targets = ecs.write_storage::<Target>();
     let entities = ecs.entities();
     let mut current_target : Option<Entity> = None;
-
     for (e,_t) in (&entities, &targets).join() {
         current_target = Some(e);
     }
-
+    
     targets.clear();
     if let Some(current_target) = current_target {
+        println!("possible targets len {}", possible_targets.len());
         if !possible_targets.len() > 1 {
             let mut index = 0;
             for (i, target) in possible_targets.iter().enumerate() {
@@ -101,12 +101,14 @@ fn cycle_target(ecs: &mut World) {
                     index = i;
                 }
             }
-
-            if index > possible_targets.len()-2 {
+            // TODO - revisit this logic for handling only a single target
+            if index > possible_targets.len().saturating_sub(2) {
                 targets.insert(possible_targets[0].1, Target{}).expect("Insert fail");
             } else {
                 targets.insert(possible_targets[index+1].1, Target{}).expect("Insert fail");
             }
+            
+            println!("done");
         }
     }
 }
@@ -119,7 +121,7 @@ pub fn try_move_player(delta_x: i32, delta_y: i32, ecs: &mut World) -> RunState 
     let entities = ecs.entities();
     let combat_stats = ecs.read_storage::<Attributes>();
     let map = ecs.fetch::<Map>();
-    let mut wants_to_melee = ecs.write_storage::<WantsToMelee>();
+    let mut wants_to_attack = ecs.write_storage::<WantsToAttack>();
     let mut entity_moved = ecs.write_storage::<EntityMoved>();
     let mut doors = ecs.write_storage::<Door>();
     let mut blocks_visibility = ecs.write_storage::<BlocksVisibility>();
@@ -172,7 +174,7 @@ pub fn try_move_player(delta_x: i32, delta_y: i32, ecs: &mut World) -> RunState 
             } else {
                 let target = combat_stats.get(potential_target);
                 if let Some(_target) = target {
-                    wants_to_melee.insert(entity, WantsToMelee{ target: potential_target }).expect("Add target failed");
+                    wants_to_attack.insert(entity, WantsToAttack{ target: potential_target, attack_type: AttackType::Melee}).expect("Add target failed");
                     return Some(RunState::Ticking);
                 }
             }

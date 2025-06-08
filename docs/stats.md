@@ -16,4 +16,3 @@ This determines how much damage an entity can take before it's destroyed
 An entity's strength stat is defaulted to a value of 10. Any value less than 10 will start to have negative impacts, while values above 10 will have positive impacts. The strength stat will affect the following:
 
 * Damage - Every +2 strength over 10 will add +1 to damage rolls. Every -2 strength under 10 will subtract 1 from damage rolls.
-

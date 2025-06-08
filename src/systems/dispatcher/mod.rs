@@ -34,8 +34,7 @@ construct_dispatcher!(
     (DefaultMoveAI, "default_move", &[]), //huge slow down
     (MovementSystem, "movement", &[]),
     (TriggerSystem, "triggers", &[]),
-    (MeleeCombatSystem, "melee", &[]),
-    (RangedCombatSystem, "ranged", &[]),
+    (CombatSystem, "combat", &[]),
     (ItemCollectionSystem, "pickup", &[]),
     (ItemEquipOnUse, "equip", &[]),
     (ItemUseSystem, "use", &[]),

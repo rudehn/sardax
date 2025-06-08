@@ -117,12 +117,12 @@ pub fn render_camera(ecs: &World, ctx : &mut Rltk) {
             let entity_screen_x = pos.x - min_x;
             let entity_screen_y = pos.y - min_y;
             draw_batch.set(
-                Point::new(entity_screen_x , entity_screen_y + 1),
+                Point::new(x_offset as i32 + entity_screen_x , entity_screen_y + 1),
                 ColorPair::new(RGB::named(rltk::RED), RGB::named(rltk::YELLOW)),
                 to_cp437('[')
             );
             draw_batch.set(
-                Point::new(entity_screen_x +2, entity_screen_y + 1),
+                Point::new(x_offset as i32 +  entity_screen_x +2, entity_screen_y + 1),
                 ColorPair::new(RGB::named(rltk::RED), RGB::named(rltk::YELLOW)),
                 to_cp437(']')
             );

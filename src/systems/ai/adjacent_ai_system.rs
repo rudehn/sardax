@@ -1,6 +1,6 @@
 use specs::prelude::*;
 use rltk::Rect;
-use crate::{MyTurn, Faction, Position, Map, raws::Reaction, WantsToMelee, TileSize};
+use crate::{MyTurn, Faction, Position, Map, raws::Reaction, WantsToAttack, AttackType, TileSize};
 
 pub struct AdjacentAI {}
 
@@ -11,14 +11,14 @@ impl<'a> System<'a> for AdjacentAI {
         ReadStorage<'a, Faction>,
         ReadStorage<'a, Position>,
         ReadExpect<'a, Map>,
-        WriteStorage<'a, WantsToMelee>,
+        WriteStorage<'a, WantsToAttack>,
         Entities<'a>,
         ReadExpect<'a, Entity>,
         ReadStorage<'a, TileSize>
     );
 
     fn run(&mut self, data : Self::SystemData) {
-        let (mut turns, factions, positions, map, mut want_melee, entities, player, sizes) = data;
+        let (mut turns, factions, positions, map, mut want_attack, entities, player, sizes) = data;
         let mut turn_done : Vec<Entity> = Vec::new();
         for (entity, _turn, my_faction, pos) in (&entities, &turns, &factions, &positions).join() {
             if entity != *player {
@@ -53,7 +53,7 @@ impl<'a> System<'a> for AdjacentAI {
                 let mut done = false;
                 for reaction in reactions.iter() {
                     if let Reaction::Attack = reaction.1 {
-                        want_melee.insert(entity, WantsToMelee{ target: reaction.0 }).expect("Error inserting melee");
+                        want_attack.insert(entity, WantsToAttack{ target: reaction.0, attack_type: AttackType::Melee}).expect("Error inserting melee");
                         done = true;
                     }
                 }
