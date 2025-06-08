@@ -3,7 +3,7 @@ use crate::{Skills, WantsToMelee, Name, Pools, Equipped, Weapon, EquipmentSlot,
     Wearable, NaturalAttackDefense, AttackEffect, effects::*, WantsToShoot,Initiative, Position, Map, Attributes};
 use crate::constants::DEFAULT_ACTION_COST;
 use rltk::{to_cp437, RGB, Point};
-use crate::damage_system::get_evade_stat;
+use crate::combat::stats::get_evade_stat;
 
 
 pub struct MeleeCombatSystem {}

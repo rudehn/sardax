@@ -11,7 +11,6 @@ mod map;
 pub use map::*;
 mod player;
 use player::*;
-mod damage_system;
 mod gui;
 mod gamelog;
 mod spawner;
@@ -20,8 +19,6 @@ pub mod random_table;
 pub mod rex_assets;
 pub mod map_builders;
 pub mod raws;
-mod gamesystem;
-pub use gamesystem::*;
 pub mod effects;
 #[macro_use]
 extern crate lazy_static;
@@ -29,6 +26,8 @@ mod systems;
 pub mod rng;
 pub mod spatial;
 pub mod vision;
+mod combat;
+pub use combat::*;
 
 
 #[derive(PartialEq, Copy, Clone)]

@@ -4,7 +4,8 @@ use super::{Pools, Pool, Player, Renderable, Name, Position, Viewshed,
     SerializeMe, random_table::MasterTable, HungerClock, HungerState, Map, TileType, raws::*,
     Attributes, Attribute, Skills, Skill, LightSource, Initiative, Faction,
     OtherLevelPosition, MasterDungeonMap, EntryTrigger, TeleportTo, SingleActivation, KnownSpells,
-    EquipmentChanged, DEFAULT_ENERGY_GAIN, attr_bonus};
+    EquipmentChanged, DEFAULT_ENERGY_GAIN};
+use crate::combat::stats::attr_bonus;
 use specs::saveload::{MarkedBuilder, SimpleMarker};
 use std::collections::HashMap;
 

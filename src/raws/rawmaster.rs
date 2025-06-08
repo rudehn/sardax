@@ -1,7 +1,7 @@
 use std::collections::{HashMap, HashSet};
 use specs::prelude::*;
 use crate::components::*;
-use crate::attr_bonus;
+use crate::combat::stats::attr_bonus;
 use super::{Raws, faction_structs::Reaction};
 use crate::random_table::{MasterTable, RandomTable};
 use crate::components::EffectValues;
