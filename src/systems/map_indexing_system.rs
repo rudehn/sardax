@@ -18,10 +18,12 @@ impl<'a> System<'a> for MapIndexingSystem {
         spatial::clear();
         spatial::populate_blocked_from_map(&*map);
         for (entity, position) in (&entities, &position).join() {
-            let mut alive = true;
+            // We need to explicitly deny updating entities to the spatial map unless they have health
+            // This catches unexpected scenarios like Particle objects being indexed
+            let mut alive = false;
             if let Some(pools) = pools.get(entity) {
-                if pools.hit_points.current < 1 {
-                    alive = false;
+                if pools.hit_points.current > 0 {
+                    alive = true;
                 }
             }
             if alive {

@@ -26,6 +26,6 @@ pub const STATUS_SLOW_COLOR: (u8, u8, u8) = PURPLE;
 
 // Energy/Action point related
 // These determine how frequently the entitity can take actions
-pub const TICKS_PER_TURN: i32 = 5; // 5 loops per turn
+pub const TICKS_PER_TURN: i32 = 1; // 1 loop per turn
 pub const DEFAULT_ACTION_COST: i32 = 100; // Default global action cost needed to perform a generic action
 pub const DEFAULT_ENERGY_GAIN: i32 = DEFAULT_ACTION_COST / TICKS_PER_TURN;  // Default global action recovery speed per tick for all entities

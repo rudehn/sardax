@@ -193,6 +193,7 @@ fn event_trigger(creator : Option<Entity>, entity: Entity, targets : &Targets, e
 
     // Stun
     if let Some(stun) = ecs.read_storage::<InflictsStun>().get(entity) {
+        println!("Inflicting stun now");
         add_effect(creator, EffectType::StatusEffect{effect: status::StatusEffect::Stun}, targets.clone());
         did_something = true;
     }

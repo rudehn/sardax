@@ -23,8 +23,8 @@ construct_dispatcher!(
     (MapIndexingSystem, "map_index", &[]),
     (VisibilitySystem, "visibility", &[]),
     // (EncumbranceSystem, "encumbrance", &[]),
-    (InitiativeSystem, "initiative", &[]),
-    (TurnStatusSystem, "turnstatus", &[]),
+    (EnergySystem, "energy", &[]),
+    (TurnEndSystem, "turn_end", &[]),
     (QuipSystem, "quips", &[]),
     (AdjacentAI, "adjacent", &[]), // small drop
     (VisibleAI, "visible", &[]),
@@ -44,8 +44,7 @@ construct_dispatcher!(
     (ItemRemoveSystem, "remove", &[]),
     (HungerSystem, "hunger", &[]),
     (ParticleSpawnSystem, "particle_spawn", &[]),
-    (LightingSystem, "lighting", &[]),
-    (TurnEndSystem, "turn_end", &[])
+    (LightingSystem, "lighting", &[])
 );
 
 pub fn new() -> Box<dyn UnifiedDispatcher + 'static> {

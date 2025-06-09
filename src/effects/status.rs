@@ -167,10 +167,27 @@ fn slow(ecs: &mut World, target: Entity) {
 
 
 fn stun(ecs: &mut World, target: Entity) {
-    ecs.create_entity()
-        .with(StatusEffectComponent{ target })
-        .with(Stun{})
-        .with(Name{ name : "Stunned".to_string() })
-        .marked::<SimpleMarker<SerializeMe>>()
-        .build();
+    let mut found_status = false;
+    let stun_duration = 2;
+    {
+        let mut durations = ecs.write_storage::<Duration>();
+        let status_effect = ecs.read_storage::<StatusEffectComponent>();
+        let stunned = ecs.read_storage::<Stun>();
+        for (effect, _stun, duration) in (&status_effect, &stunned, &mut durations).join() {
+            if effect.target == target {
+                found_status = true;
+                duration.turns = stun_duration;
+                break;
+            }
+        }
+    }
+    if !found_status {
+        ecs.create_entity()
+            .with(StatusEffectComponent{ target })
+            .with(Stun{})
+            .with(Duration{ turns : stun_duration, total_turns: stun_duration})
+            .with(Name{ name : "Stunned".to_string() })
+            .marked::<SimpleMarker<SerializeMe>>()
+            .build();
+    }
 }

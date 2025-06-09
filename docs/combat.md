@@ -1,10 +1,5 @@
 # Combat in the Game
 # Stats
-Combat is based on creature stats, those stats are listed below
-
-Action speed
-  - attack speed
-  - move speed
 Vision (in tiles)
 HP
   - Monsters start with a specified dice roll based on their creature type. 

@@ -16,7 +16,9 @@ Migrate enemy abilities to become fully spells
 Rename burning component to burn
 Combine turn status & turn end systems
 combine the inflicts{Burn,stun} into one component
-
+merge get_item_display_name and obfuscate_name
+if player is stunned, the next player input will fast forward through all stunned rounds
+Rename turn end system to duration system
 
 
 use_spell_hotkey

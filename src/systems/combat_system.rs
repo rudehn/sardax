@@ -191,9 +191,12 @@ fn trigger_proc_effects(attacker: &Entity, defender: &Entity, weapon_info: &Weap
 
 fn trigger_proc_effects_nat_attack(attacker: &Entity, defender: &Entity, nat_attack: &AttackEffect){
     // Proc effects
+    println!("In trigger proc effects");
     if let Some(chance) = &nat_attack.proc_chance {
+        println!("Chance {}", chance);
         let roll = crate::rng::roll_dice(1, 100);
         if roll <= (chance * 100.0) as i32 {
+            println!("succeeded with {}", roll);
             let effect_target = if nat_attack.proc_target.clone().unwrap_or("Target".to_string()) == "Self" {
                 Targets::Single{ target: *attacker }
             } else {

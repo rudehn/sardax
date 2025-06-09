@@ -26,7 +26,7 @@ pub fn obfuscate_name(
         }
 
     } else {
-        "Nameless item (bug)".to_string()
+        "Obfuscated nameless item (bug)".to_string()
     }
 }
 

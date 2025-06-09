@@ -271,8 +271,14 @@
         },
         "weapon" : {
             "range" : "4",
-            "base_damage" : "1d4",
-            "hit_bonus" : 0
+            "base_damage" : "1d1",
+            "hit_bonus" : 0,
+            "proc_chance": 1,
+            "proc_target": "enemy",
+            "proc_effects": {
+                "stun" :  {}
+            
+            }
         },
         "weight_lbs" : 2.0,
         "base_value" : 5.0,
@@ -774,6 +780,22 @@
         "health": "1d6",
         "attributes": {
             "strength": 10
+        },
+        "natural" : {
+            "attacks" : [
+                { 
+                    "name" : "slaps",
+                    "hit_bonus" : 0,
+                    "damage" : "1d4",
+                    "on_hit": {
+                        "proc_chance": 0.5,
+                        "proc_target": "enemy",
+                        "proc_effects": {
+                            "stun" :  {}
+                        }
+                    }
+                }
+            ]
         },
         "equipped" : ["Dagger"],
         "faction" : "Enemies"
