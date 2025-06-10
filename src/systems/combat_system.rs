@@ -215,19 +215,29 @@ fn do_attack_hit(
     attacker_entity: &Entity, defender_entity: &Entity,
     attacker_name: &Name, defender_name: &Name, damage: i32, damage_verb: &str
 ) {
-    add_effect(
-        Some(*attacker_entity),
-        EffectType::Damage{ amount: damage },
-        Targets::Single{ target: *defender_entity }
-    );
-    crate::gamelog::Logger::new()
-        .npc_name(&attacker_name.name)
-        .append(damage_verb)
-        .npc_name(&defender_name.name)
-        .append("for")
-        .damage(damage)
-        .append("hp.")
-        .log();
+    if damage > 0 {
+        add_effect(
+            Some(*attacker_entity),
+            EffectType::Damage{ amount: damage },
+            Targets::Single{ target: *defender_entity }
+        );
+        crate::gamelog::Logger::new()
+            .npc_name(&attacker_name.name)
+            .append(damage_verb)
+            .npc_name(&defender_name.name)
+            .append("for")
+            .damage(damage)
+            .append("hp.")
+            .log();
+    } else {
+        crate::gamelog::Logger::new()
+            .npc_name(&attacker_name.name)
+            .append(damage_verb)
+            .npc_name(&defender_name.name)
+            .append("but couldn't do damage")
+            .log();
+    }
+   
 }
 
 fn log_miss(attacker_name: &Name, defender_name: &Name, damage_verb: &str) {

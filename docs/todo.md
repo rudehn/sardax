@@ -1,8 +1,6 @@
 Normalize some of the components and deserialization structs, such as those used for natural attacks and weapons
 Perhaps effects should be a parametrized enum
 Better visual of status effects for entities on side bar
-- Don't double stack paralasis
-- Implement paralazis 
 Add constants for color, make status effect on side bar & the particle effect constant
 TODO - add particle effect colors for status effects - make same color as UI
 Turn status system needs to subtract energy cost
@@ -13,12 +11,12 @@ Migrate enemy abilities to become fully spells
 - Spells should consume mana (enemies)??
 - How to prevent monster from spamming spells & running out of mana
 - How does a bigger AI refactor play in here?
-Rename burning component to burn
-Combine turn status & turn end systems
 combine the inflicts{Burn,stun} into one component
 merge get_item_display_name and obfuscate_name
 if player is stunned, the next player input will fast forward through all stunned rounds
-Rename turn end system to duration system
+Maps should be less empty
+Add unique mobs
+Make some of the mob json fields and enum instead of string
 
 
 use_spell_hotkey

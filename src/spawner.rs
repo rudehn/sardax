@@ -37,8 +37,8 @@ pub fn player(ecs : &mut World, player_x : i32, player_y : i32) -> Entity {
         .with(skills)
         .with(Pools{
             hit_points : Pool{
-                current: 10,
-                max: 10
+                current: 100,
+                max: 100
             },
             mana: Pool{
                 current: 10,
@@ -59,8 +59,8 @@ pub fn player(ecs : &mut World, player_x : i32, player_y : i32) -> Entity {
         .build();
 
     // Starting equipment
-    spawn_named_entity(&RAWS.lock().unwrap(), ecs, "Dried Sausage", SpawnType::Carried{by : player} );
-    spawn_named_entity(&RAWS.lock().unwrap(), ecs, "Beer", SpawnType::Carried{by : player});
+    // spawn_named_entity(&RAWS.lock().unwrap(), ecs, "Dried Sausage", SpawnType::Carried{by : player} );
+    // spawn_named_entity(&RAWS.lock().unwrap(), ecs, "Beer", SpawnType::Carried{by : player});
     spawn_named_entity(&RAWS.lock().unwrap(), ecs, "Shortbow", SpawnType::Carried{by : player});
     // spawn_named_entity(&RAWS.lock().unwrap(), ecs, "Rod of Fireballs2", SpawnType::Carried{by : player});
     // spawn_named_entity(&RAWS.lock().unwrap(), ecs, "Rod of Tunneling", SpawnType::Carried{by : player});

@@ -1,16 +1,12 @@
 {
 "spawn_table" : [
-    { "name" : "Goblin", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
-    { "name" : "Breastplate", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
-    { "name" : "Health Potion", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
-    { "name" : "Beginner's Magic", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
-    { "name" : "Magic Mapping Scroll", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
-    { "name" : "Rod of Fireballs", "weight" : 10, "min_depth" : 1, "max_depth" : 26},
-    { "name" : "Shortbow", "weight" : 100, "min_depth" : 1, "max_depth" : 26}
+    { "name" : "Goblin", "weight" : 100, "min_depth" : 1, "max_depth" : 20},
+    { "name" : "Hobgoblin", "weight" : 10, "min_depth" : 1, "max_depth" : 20}
 ],
 
 "loot_tables" : [
-    { "name" : "Wyrms",
+    { 
+        "name" : "Wyrms",
         "drops" : [
             { "name" : "Dragon Scale", "weight" : 10 }
         ]
@@ -19,6 +15,7 @@
 
 "faction_table" : [
     { "name" : "Player", "responses": { }},
+    { "name" : "Goblins", "responses" : { "Default" : "attack", "Goblins" : "ignore" } },
     { "name" : "Enemies", "responses" : { "Default" : "attack", "Enemies" : "ignore" } }
 ],
 
@@ -204,48 +201,6 @@
         "vendor_category" : "food"
     },
     {
-        "name" : "Dragon Scale",
-        "renderable": {
-            "glyph" : "ß",
-            "fg" : "#FFD700",
-            "order" : 2
-        },
-        "weight_lbs" : 2.0,
-        "base_value" : 75.0
-    },
-
-    {
-        "name" : "Dried Sausage",
-        "renderable": {
-            "glyph" : "%",
-            "fg" : "#00FF00",
-            "order" : 2
-        },
-        "consumable" : {
-            "effects" : { 
-                "food" : {}
-            }
-        },
-        "weight_lbs" : 2.0,
-        "base_value" : 0.5
-    },
-
-    {
-        "name" : "Beer",
-        "renderable": {
-            "glyph" : "!",
-            "fg" : "#FF00FF",
-            "order" : 2
-        },
-        "consumable" : {
-            "effects" : { "provides_healing" : {"amount": 4} }
-        },
-        "weight_lbs" : 2.0,
-        "base_value" : 0.5,
-        "vendor_category" : "food"
-    },
-
-    {
         "name" : "Dagger",
         "renderable": {
             "glyph" : "/",
@@ -271,14 +226,8 @@
         },
         "weapon" : {
             "range" : "4",
-            "base_damage" : "1d1",
-            "hit_bonus" : 0,
-            "proc_chance": 1,
-            "proc_target": "enemy",
-            "proc_effects": {
-                "stun" :  {}
-            
-            }
+            "base_damage" : "1d4",
+            "hit_bonus" : 0
         },
         "weight_lbs" : 2.0,
         "base_value" : 5.0,
@@ -418,23 +367,6 @@
         "base_value" : 10.0,
         "vendor_category" : "armor"
     },
-
-    {
-        "name" : "Tower Shield",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FFFF",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Shield",
-            "armor_class" : 2.0
-        },
-        "weight_lbs" : 45.0,
-        "base_value" : 30.0,
-        "vendor_category" : "armor"
-    },
-
     {
         "name" : "Leather Pants",
         "renderable": {
@@ -448,54 +380,6 @@
         },
         "weight_lbs" : 2.5,
         "base_value" : 10.0,
-        "vendor_category" : "clothes"
-    },
-
-    {
-        "name" : "Chain Leggings",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FFFF",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Legs",
-            "armor_class" : 0.3
-        },
-        "weight_lbs" : 10.0,
-        "base_value" : 50.0,
-        "vendor_category" : "clothes"
-    },
-
-    {
-        "name" : "Drow Leggings",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FFFF",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Legs",
-            "armor_class" : 0.4
-        },
-        "weight_lbs" : 10.0,
-        "base_value" : 50.0,
-        "vendor_category" : "clothes"
-    },
-
-    {
-        "name" : "Steel Greaves",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FFFF",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Legs",
-            "armor_class" : 0.5
-        },
-        "weight_lbs" : 20.0,
-        "base_value" : 100.0,
         "vendor_category" : "clothes"
     },
 
@@ -514,40 +398,6 @@
         "base_value" : 10.0,
         "vendor_category" : "clothes"
     },
-
-    {
-        "name" : "Chainmail Armor",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Torso",
-            "armor_class" : 2.0
-        },
-        "weight_lbs" : 20.0,
-        "base_value" : 50.0,
-        "vendor_category" : "armor"
-    },
-
-
-    {
-        "name" : "Breastplate",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Torso",
-            "armor_class" : 3.0
-        },
-        "weight_lbs" : 25.0,
-        "base_value" : 100.0,
-        "vendor_category" : "armor"
-    },
-
     {
         "name" : "Leather Cap",
         "renderable": {
@@ -563,23 +413,6 @@
         "base_value" : 5.0,
         "vendor_category" : "armor"
     },
-
-    {
-        "name" : "Steel Helm",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Head",
-            "armor_class" : 2.0
-        },
-        "weight_lbs" : 15.0,
-        "base_value" : 100.0,
-        "vendor_category" : "armor"
-    },
-
     {
         "name" : "Leather Boots",
         "renderable": {
@@ -593,54 +426,6 @@
         },
         "weight_lbs" : 1.0,
         "base_value" : 5.0,
-        "vendor_category" : "clothes"
-    },
-
-    {
-        "name" : "Drow Boots",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Feet",
-            "armor_class" : 0.4
-        },
-        "weight_lbs" : 2.0,
-        "base_value" : 10.0,
-        "vendor_category" : "armor"
-    },
-
-    {
-        "name" : "Steel Boots",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#00FF00",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Feet",
-            "armor_class" : 0.5
-        },
-        "weight_lbs" : 5.0,
-        "base_value" : 10.0,
-        "vendor_category" : "armor"
-    },
-
-    {
-        "name" : "Cloth Gloves",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#FF9999",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Hands",
-            "armor_class" : 0.1
-        },
-        "weight_lbs" : 0.5,
-        "base_value" : 1.0,
         "vendor_category" : "clothes"
     },
 
@@ -660,37 +445,6 @@
         "vendor_category" : "clothes"
     },
 
-    {
-        "name" : "Chain Gloves",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#FF9999",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Hands",
-            "armor_class" : 0.3
-        },
-        "weight_lbs" : 2.0,
-        "base_value" : 10.0,
-        "vendor_category" : "clothes"
-    },
-
-    {
-        "name" : "Steel Gloves",
-        "renderable": {
-            "glyph" : "[",
-            "fg" : "#FF9999",
-            "order" : 2
-        },
-        "wearable" : {
-            "slot" : "Hands",
-            "armor_class" : 0.5
-        },
-        "weight_lbs" : 5.0,
-        "base_value" : 10.0,
-        "vendor_category" : "clothes"
-    },
     {
         "name" : "Rod of Fireballs",
         "renderable": {
@@ -771,34 +525,51 @@
         "name" : "Goblin",
         "renderable": {
             "glyph" : "g",
-            "fg" : "#00FF00",
+            "fg" : "#0ae50a",
             "order" : 1
         },
         "blocks_tile" : true,
         "vision_range" : 18,
         "movement" : "random",
-        "health": "1d6",
+        "health": "2d6",
         "attributes": {
-            "strength": 10
+            "strength": 8
         },
-        "natural" : {
-            "attacks" : [
-                { 
-                    "name" : "slaps",
-                    "hit_bonus" : 0,
-                    "damage" : "1d4",
-                    "on_hit": {
-                        "proc_chance": 0.5,
-                        "proc_target": "enemy",
-                        "proc_effects": {
-                            "stun" :  {}
-                        }
-                    }
+        "natural": {
+            "attacks": [
+                {
+                    "name": "stabs",
+                    "hit_bonus": 0,
+                    "damage": "1d6"
                 }
             ]
         },
-        "equipped" : ["Dagger"],
-        "faction" : "Enemies"
+        "faction" : "Goblins"
+    },
+    {
+        "name" : "Hobgoblin",
+        "renderable": {
+            "glyph" : "g",
+            "fg" : "#007200",
+            "order" : 1
+        },
+        "blocks_tile" : true,
+        "vision_range" : 18,
+        "movement" : "random",
+        "health": "2d8+2",
+        "attributes": {
+            "strength": 13
+        },
+        "natural": {
+            "attacks": [
+                {
+                    "name": "slashes",
+                    "hit_bonus": 0,
+                    "damage": "1d10+1"
+                }
+            ]
+        },
+        "faction" : "Goblins"
     }
 ],
 
@@ -881,27 +652,6 @@
             }
         }
     },
-
-    {
-        "name" : "Candle",
-        "renderable": {
-            "glyph" : "Ä",
-            "fg" : "#FFA500",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
-    {
-        "name" : "Anvil",
-        "renderable": {
-            "glyph" : "╔",
-            "fg" : "#AAAAAA",
-            "order" : 2
-        },
-        "hidden" : false
-    },
-
     {
         "name" : "Watch Fire",
         "renderable": {
@@ -917,25 +667,6 @@
         "entry_trigger" : {
             "effects" : {
                 "damage" : {"amount": 6}
-            }
-        }
-    },
-    {
-        "name" : "Fire",
-        "renderable": {
-            "glyph" : "^",
-            "fg" : "#E25822",
-            "order" : 2
-        },
-        "hidden" : false,
-        "light" : {
-            "range" : 6,
-            "color" : "#E25822"
-        },
-        "entry_trigger" : {
-            "effects" : {
-                "burn": {},
-                "duration": {"amount": 4}
             }
         }
     }

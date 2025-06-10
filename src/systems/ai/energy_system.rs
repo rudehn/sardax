@@ -62,14 +62,11 @@ impl<'a> System<'a> for EnergySystem {
         }
 
         // Find status effects affecting entities whose turn it is
-        println!("Checking status");
         for (entity, status_effect) in (&entities, &statuses).join() {
             if entity_turns.contains(&status_effect.target) {
-                println!("Found an entity with a status effect");
                 // Skip turn for stun.
                 // We are checking the status effect entity to see if it has a stunned component
                 if stunned.get(entity).is_some() {
-                    println!("Skipping an entities turn");
                     add_effect(
                         None, 
                         EffectType::Particle{
@@ -86,18 +83,14 @@ impl<'a> System<'a> for EnergySystem {
                         // If an entities' turn is skipped, we need to remove an action's worth of energy
                         // so the energy doesn't keep banking up and the entity can perform a double action
                         // in the future
-                        println!("Current initiative {}", initiative.current);
                         initiative.current -= DEFAULT_ACTION_COST;
-                        println!("New initiative {}", initiative.current);
                     }
                 }
             }
         }
 
         // Only assign state to RunState::AwaitingInput after we confirm the player isn't affected by a status effect
-        println!("Checking for player turn");
         if turns.get(*player).is_some() {
-            println!("Yep still has a turn");
             *runstate = RunState::AwaitingInput;
         }
     }

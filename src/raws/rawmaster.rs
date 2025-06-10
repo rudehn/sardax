@@ -472,12 +472,13 @@ pub fn spawn_named_mob(raws: &RawMaster, ecs : &mut World, key : &str, pos : Spa
             hit_points : Pool{ current: mob_hp, max: mob_hp },
             mana: Pool{current: 0, max: 0},
             total_weight : 0.0,
-            gold : if let Some(gold) = &mob_template.gold {
-                    let (n, d, b) = parse_dice_string(&gold);
-                    (crate::rng::roll_dice(n, d) + b) as f32
-                } else {
-                    0.0
-                },
+            gold: 0.0,
+            // gold : if let Some(gold) = &mob_template.gold {
+            //         let (n, d, b) = parse_dice_string(&gold);
+            //         (crate::rng::roll_dice(n, d) + b) as f32
+            //     } else {
+            //         0.0
+            //     },
             god_mode : false
         };
         eb = eb.with(pools);

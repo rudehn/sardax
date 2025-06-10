@@ -24,7 +24,7 @@ construct_dispatcher!(
     (VisibilitySystem, "visibility", &[]),
     // (EncumbranceSystem, "encumbrance", &[]),
     (EnergySystem, "energy", &[]),
-    (TurnEndSystem, "turn_end", &[]),
+    (DurationSystem, "duration", &[]),
     (QuipSystem, "quips", &[]),
     (AdjacentAI, "adjacent", &[]), // small drop
     (VisibleAI, "visible", &[]),

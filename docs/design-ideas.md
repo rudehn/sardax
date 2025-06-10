@@ -34,6 +34,10 @@ TileSet - https://en.wikipedia.org/wiki/Code_page_437
     - Health & status effects should be displayed
     - Hovering over these entities should show a detailed description
   - Hovering over an item or creature on the ground should show a description
+* Items should have an effects section detailing what the item does
+  * Items then should have a consumable flag which will apply the effects
+  * Items should have a throwable flag? weight?
+* Items should have an enchantable section indicating what the enchantment does
 
 ## Level Generation
 * https://www.rockpapershotgun.com/how-do-roguelikes-generate-levels
@@ -135,20 +139,4 @@ Ideas:
 - Update display coloring
 - TODO - customizable map size per level
 - status immunities
-- status effects:
-  - berserk
-  - blind - vision reduced/removed
-  - bleed - lose 2.5% max hp per tick
-  - confuse - attack both ally and enemy
-  - fear - causes enemies to run away from source of fear
-  - stun - prevent all actions for 1 turn
-  - curse - drop in stats
-  - slow - reduce targets speed by 50%, less for bosses
-  - poison - lose a small amount of hp per turn
-  - burn
-  - charmed - you control the charmed target
-  - silence - target is unable to use magic spells
-  - sleep - skips turn
-  - trapped - can't move
-  - invisible - can't be seen
-  - Webbed - slowed/stopped for x turns
+

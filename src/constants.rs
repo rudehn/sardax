@@ -14,7 +14,7 @@ pub const PANEL_PADDING: i32 = 2;
 pub const LEFT_PANEL_WIDTH: i32 = 30;
 
 // Game Mechanics
-pub const AMULET_LEVEL: i32 = 10;
+pub const AMULET_LEVEL: i32 = 20;
 
 // Colors for consistent UI displaying status effects
 pub const STATUS_GENERIC_COLOR: (u8, u8, u8) = BLUE;
