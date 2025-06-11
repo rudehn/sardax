@@ -36,7 +36,7 @@ impl MasterTable {
     }
 
     pub fn roll(&self) -> String {
-        let roll = crate::rng::roll_dice(1, 4);
+        let roll = crate::rng::roll_dice(1, 3);
         match roll {
             1 => self.items.roll(),
             2 => self.props.roll(),

@@ -3,8 +3,6 @@ Perhaps effects should be a parametrized enum
 Better visual of status effects for entities on side bar
 Add constants for color, make status effect on side bar & the particle effect constant
 TODO - add particle effect colors for status effects - make same color as UI
-Turn status system needs to subtract energy cost
-Merge turn status system with end of turn system & apply right after initiative system?
 Migrate enemy abilities to become fully spells
 - Spells have an optional min range
 - Vision system queries the spells, not the spell metadata on the entity
@@ -17,12 +15,13 @@ if player is stunned, the next player input will fast forward through all stunne
 Maps should be less empty
 Add unique mobs
 Make some of the mob json fields and enum instead of string
+occasional performance drop
+damage particles flash 1 turn after damage
 
 
 use_spell_hotkey
 spell_trigger
 spawn_all_spells exists?
-spawner.rs import errors
 
 death - drop all inventory, drop all equipped, roll loot table
 ranged_target function shows "Select Target" in top left corner

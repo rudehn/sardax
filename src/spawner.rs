@@ -8,6 +8,7 @@ use super::{Pools, Pool, Player, Renderable, Name, Position, Viewshed,
 use crate::combat::stats::attr_bonus;
 use specs::saveload::{MarkedBuilder, SimpleMarker};
 use std::collections::HashMap;
+use crate::raws::SpawnTableType;
 
 /// Spawns the player and returns his/her entity object.
 pub fn player(ecs : &mut World, player_x : i32, player_y : i32) -> Entity {
@@ -69,14 +70,14 @@ pub fn player(ecs : &mut World, player_x : i32, player_y : i32) -> Entity {
     player
 }
 
-const MAX_MONSTERS : i32 = 4;
+const MAX_MONSTERS : i32 = 1;
 
 fn room_table(map_depth: i32) -> MasterTable {
     get_spawn_table_for_depth(&RAWS.lock().unwrap(), map_depth)
 }
 
 /// Fills a room with stuff!
-pub fn spawn_room(map: &Map, room : &Rect, map_depth: i32, spawn_list : &mut Vec<(usize, String)>) {
+pub fn spawn_room(map: &Map, room : &Rect, map_depth: i32, spawn_list : &mut Vec<(usize, String)>, spawn_type: SpawnTableType) {
     let mut possible_targets : Vec<usize> = Vec::new();
     { // Borrow scope - to keep access to the map separated
         for y in room.y1 + 1 .. room.y2 {
@@ -89,25 +90,25 @@ pub fn spawn_room(map: &Map, room : &Rect, map_depth: i32, spawn_list : &mut Vec
         }
     }
 
-    spawn_region(map, &possible_targets, map_depth, spawn_list);
+    spawn_region(map, &possible_targets, map_depth, spawn_list, spawn_type);
 }
 
 /// Fills a region with stuff!
-pub fn spawn_region(_map: &Map, area : &[usize], map_depth: i32, spawn_list : &mut Vec<(usize, String)>) {
+pub fn spawn_region(_map: &Map, area : &[usize], map_depth: i32, spawn_list : &mut Vec<(usize, String)>, spawn_type: SpawnTableType) {
     let spawn_table = room_table(map_depth);
     let mut spawn_points : HashMap<usize, String> = HashMap::new();
     let mut areas : Vec<usize> = Vec::from(area);
 
     // Scope to keep the borrow checker happy
     {
-        let num_spawns = i32::min(areas.len() as i32, crate::rng::roll_dice(1, MAX_MONSTERS + 3) + (map_depth - 1) - 3);
+        let num_spawns = i32::min(areas.len() as i32, crate::rng::roll_dice(1, MAX_MONSTERS) + (map_depth - 1));
         if num_spawns == 0 { return; }
 
         for _i in 0 .. num_spawns {
             let array_index = if areas.len() == 1 { 0usize } else { (crate::rng::roll_dice(1, areas.len() as i32)-1) as usize };
 
             let map_idx = areas[array_index];
-            spawn_points.insert(map_idx, spawn_table.roll());
+            spawn_points.insert(map_idx, spawn_table.roll_by_type(spawn_type));
             areas.remove(array_index);
         }
     }

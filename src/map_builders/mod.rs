@@ -18,9 +18,9 @@ use utility::room_draw::RoomDrawer;
 use utility::rooms_corridors_nearest::NearestCorridors;
 use utility::door_placement::DoorPlacement;
 use utility::amulet_spawner::AmuletSpawner;
-use utility::room_corridor_spawner::CorridorSpawner;
-use utility::room_based_spawner::RoomBasedSpawner;
-use algorithms::voronoi_spawning::VoronoiSpawning;
+use utility::room_corridor_spawner::CorridorMobSpawner;
+use utility::room_based_spawner::RoomBasedMobSpawner;
+use algorithms::voronoi_spawning::VoronoiMobSpawning;
 
 pub struct BuilderMap {
     pub spawn_list : Vec<(usize, String)>,
@@ -136,40 +136,44 @@ pub fn floor_builder(new_depth: i32, width: i32, height: i32) -> BuilderChain {
         map_name = "Dungeon Entrance".to_owned();
     } 
     let mut builder = BuilderChain::new(new_depth, width, height, map_name);
+
+    // MAP Generation
     builder.start_with(BspDungeonBuilder::dungeon());
-    // builder.with(RoomSorter::new(RoomSort::CENTRAL));
     builder.with(RoomDrawer::new());
     builder.with(NearestCorridors::new());
     builder.with(RoomExploder::new());
 
-    // Spawn entities in corridors
-    let cspawn_roll = crate::rng::roll_dice(1, 2);
-    if cspawn_roll == 1 {
-        builder.with(CorridorSpawner::new());
-    }
-    
     let (start_x, start_y) = random_start_position();
     builder.with(AreaStartingPosition::new(start_x, start_y));
     builder.with(DoorPlacement::new());
-
     
-    let spawn_roll = crate::rng::roll_dice(1, 2);
-    match spawn_roll {
-        1 => builder.with(RoomBasedSpawner::new()),
-        _ => builder.with(VoronoiSpawning::new())
-    }
-
     let exit_roll = crate::rng::roll_dice(1, 2);
     match exit_roll {
         // 1 => builder.with(RoomBasedStairs::new()),
         // TODO - better algorithm for generating exit
         _ => builder.with(DistantExit::new())
     }
-
+    
     if builder.build_data.map.depth == AMULET_LEVEL {
         builder.with(AmuletSpawner::new());
         builder.with(DungeonExitSpawner::new());
     }
+    
+    // Enemy Generation
+    let cspawn_roll = crate::rng::roll_dice(1, 2);
+    if cspawn_roll == 1 {
+        builder.with(CorridorMobSpawner::new());
+    }
+    
+    let spawn_roll = crate::rng::roll_dice(1, 2);
+    match spawn_roll {
+        1 => builder.with(RoomBasedMobSpawner::new()),
+        _ => builder.with(VoronoiMobSpawning::new())
+    }
+
+
+    // Item Generation
+
 
     builder
 }

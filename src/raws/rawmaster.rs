@@ -735,6 +735,7 @@ pub fn get_magic_item_loot_table_weight(depth: i32) -> MagicItemChance {
 }
 
 
+#[derive(Copy, Clone)]
 pub enum SpawnTableType { Item, Mob, Prop }
 
 pub fn spawn_type_by_name(raws: &RawMaster, key : &str) -> SpawnTableType {

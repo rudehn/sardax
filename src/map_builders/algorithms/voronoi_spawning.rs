@@ -1,18 +1,19 @@
 use crate::map_builders::{MetaMapBuilder, BuilderMap, TileType, spawner};
 use std::collections::HashMap;
+use crate::raws::SpawnTableType;
 
-pub struct VoronoiSpawning {}
+pub struct VoronoiMobSpawning {}
 
-impl MetaMapBuilder for VoronoiSpawning {
+impl MetaMapBuilder for VoronoiMobSpawning {
     fn build_map(&mut self, build_data : &mut BuilderMap)  {
         self.build(build_data);
     }
 }
 
-impl VoronoiSpawning {
+impl VoronoiMobSpawning {
     #[allow(dead_code)]
-    pub fn new() -> Box<VoronoiSpawning> {
-        Box::new(VoronoiSpawning{})
+    pub fn new() -> Box<VoronoiMobSpawning> {
+        Box::new(VoronoiMobSpawning{})
     }
 
     #[allow(clippy::map_entry)]
@@ -41,7 +42,7 @@ impl VoronoiSpawning {
 
         // Spawn the entities
         for area in noise_areas.iter() {
-            spawner::spawn_region(&build_data.map, area.1, build_data.map.depth, &mut build_data.spawn_list);
+            spawner::spawn_region(&build_data.map, area.1, build_data.map.depth, &mut build_data.spawn_list, SpawnTableType::Mob);
         }
     }
 }
