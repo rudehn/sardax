@@ -3,6 +3,8 @@ pub mod prefab_levels;
 pub mod prefab_sections;
 pub mod prefab_rooms;
 use std::collections::HashSet;
+use rltk::rex::XpCell;
+use rltk::RGB;
 
 #[derive(PartialEq, Copy, Clone)]
 #[allow(dead_code)]
@@ -77,13 +79,14 @@ impl PrefabBuilder {
         build_data.take_snapshot();
     }
 
-    fn char_to_map(&mut self, ch : char, idx: usize, build_data : &mut BuilderMap) {
+    fn char_to_map(&mut self, ch: char, idx: usize, build_data : &mut BuilderMap) {
         // Bounds check
         if idx >= build_data.map.tiles.len()-1 {
             return;
         }
         match ch {
-            ' ' => build_data.map.tiles[idx] = TileType::Floor,
+        // match char.ch as u8 as char {
+            '.' => build_data.map.tiles[idx] = TileType::Floor,
             '#' => build_data.map.tiles[idx] = TileType::Wall,
             '≈' => build_data.map.tiles[idx] = TileType::DeepWater,
             '@' => {
@@ -93,13 +96,16 @@ impl PrefabBuilder {
                 build_data.starting_position = Some(Position{ x:x as i32, y:y as i32 });
             }
             '>' => build_data.map.tiles[idx] = TileType::DownStairs,
-            'e' => {
-                build_data.map.tiles[idx] = TileType::Floor;
-                build_data.spawn_list.push((idx, "Dark Elf".to_string()));
-            }
             'g' => {
                 build_data.map.tiles[idx] = TileType::Floor;
                 build_data.spawn_list.push((idx, "Goblin".to_string()));
+                // Spawn different types of goblins depending on the color
+                // let rgb = RGB::from_u8(char.fg.r, char.fg.g, char.fg.b);
+                // if rgb == RGB::from_hex("#007200").expect("Unable to parse code") {
+                //     build_data.spawn_list.push((idx, "Hobgoblin".to_string()));
+                // } else{
+                //     build_data.spawn_list.push((idx, "Goblin".to_string()));
+                // }
             }
             'o' => {
                 build_data.map.tiles[idx] = TileType::Floor;
@@ -138,11 +144,12 @@ impl PrefabBuilder {
         for layer in &xp_file.layers {
             for y in 0..layer.height {
                 for x in 0..layer.width {
-                    let cell = layer.get(x, y).unwrap();
+                    let cell: &rltk::XpCell = layer.get(x, y).unwrap();
                     if x < build_data.map.width as usize && y < build_data.map.height as usize {
                         let idx = build_data.map.xy_idx(x as i32, y as i32);
                         // We're doing some nasty casting to make it easier to type things like '#' in the match
                         self.char_to_map(cell.ch as u8 as char, idx, build_data);
+                        // self.char_to_map(cell, idx, build_data);
                     }
                 }
             }
@@ -320,4 +327,104 @@ impl PrefabBuilder {
             }
         }
     }
+
+    fn apply_room_vaults2(&mut self, build_data : &mut BuilderMap) {
+        use prefab_rooms::*;
+
+        // Apply the previous builder, and keep all entities it spawns (for now)
+        self.apply_previous_iteration(|_x,_y| true, build_data);
+
+        // Do we want a vault at all?
+        let vault_roll = crate::rng::roll_dice(1, 6) + build_data.map.depth;
+        if vault_roll < 4 { return; }
+
+        // Filter the vault list down to ones that are applicable to the current depth
+        let room_prefab_list = prefab_rooms::RoomPrefabs::new();
+        let mut possible_vaults : Vec<&PrefabRoom> = room_prefab_list.prefabs
+            .iter()
+            .filter(|v| { build_data.map.depth >= v.first_depth && build_data.map.depth <= v.last_depth })
+            .collect();
+
+        if possible_vaults.is_empty() { return; } // Bail out if there's nothing to build
+
+        let n_vaults = i32::min(crate::rng::roll_dice(1, 3), possible_vaults.len() as i32);
+        let mut used_tiles : HashSet<usize> = HashSet::new();
+
+        for _i in 0..n_vaults {
+
+            let vault_index = if possible_vaults.len() == 1 { 0 } else { (crate::rng::roll_dice(1, possible_vaults.len() as i32)-1) as usize };
+            let vault = possible_vaults[vault_index];
+
+            // We'll make a list of places in which the vault could fit
+            let mut vault_positions : Vec<Position> = Vec::new();
+
+            let mut idx = 0usize;
+            loop {
+                let x = (idx % build_data.map.width as usize) as i32;
+                let y = (idx / build_data.map.width as usize) as i32;
+
+                // Check that we won't overflow the map
+                if x > 1
+                    && (x+vault.width as i32) < build_data.map.width-2
+                    && y > 1
+                    && (y+vault.height as i32) < build_data.map.height-2
+                {
+
+                    let mut possible = true;
+                    for ty in 0..vault.height as i32 {
+                        for tx in 0..vault.width as i32 {
+
+                            let idx = build_data.map.xy_idx(tx + x, ty + y);
+                            if build_data.map.tiles[idx] != TileType::Floor {
+                                possible = false;
+                            }
+                            if used_tiles.contains(&idx) {
+                                possible = false;
+                            }
+                        }
+                    }
+
+                    if possible {
+                        vault_positions.push(Position{ x,y });
+                        break;
+                    }
+
+                }
+
+                idx += 1;
+                if idx >= build_data.map.tiles.len()-1 { break; }
+            }
+
+            if !vault_positions.is_empty() {
+                let pos_idx = if vault_positions.len()==1 { 0 } else { (crate::rng::roll_dice(1, vault_positions.len() as i32)-1) as usize };
+                let pos = &vault_positions[pos_idx];
+
+                let chunk_x = pos.x;
+                let chunk_y = pos.y;
+
+                let width = build_data.map.width; // The borrow checker really doesn't like it
+                build_data.spawn_list.retain(|e| {
+                    let idx = e.0 as i32;
+                    let x = idx % width;
+                    let y = idx / width;
+                    x < chunk_x || x > chunk_x + vault.width as i32 || y < chunk_y || y > chunk_y + vault.height as i32
+                });
+
+                let string_vec = PrefabBuilder::read_ascii_to_vec(vault.template);
+                let mut i = 0;
+                for ty in 0..vault.height {
+                    for tx in 0..vault.width {
+                        let idx = build_data.map.xy_idx(tx as i32 + chunk_x, ty as i32 + chunk_y);
+                        self.char_to_map(string_vec[i], idx, build_data);
+                        used_tiles.insert(idx);
+                        i += 1;
+                    }
+                }
+                build_data.take_snapshot();
+
+                possible_vaults.remove(vault_index);
+            }
+        }
+    }
 }
+

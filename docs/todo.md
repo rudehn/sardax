@@ -62,3 +62,9 @@ add encumbrance system back in
 
 Add stats back in to hud + tooltip
 * https://github.com/rudehn/rust-roguelike/commit/e539e483833454e8ec9489810455786467d82a3e#diff-e1a0acfc064fa0cbe59092b9ac5e00a8b597846bd5a62fc27a00e76f37c2ab74L8-L10
+
+Prefabs
+* Create a prefabs section in the json to determine the map input & parameters for it
+* https://www.gridsagegames.com/blog/2017/01/map-prefabs-in-depth/
+* https://www.gridsagegames.com/blog/2014/07/dungeon-prefabs/
+* https://www.gridsagegames.com/blog/2016/03/generating-populating-caves/

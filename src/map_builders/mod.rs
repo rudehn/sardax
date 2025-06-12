@@ -2,11 +2,13 @@ use super::{Map, TileType, Position, spawner, SHOW_MAPGEN_VISUALIZER};
 use rltk::{Rect};
 use specs::prelude::*;
 use crate::constants::{AMULET_LEVEL, MAP_HEIGHT, MAP_WIDTH};
+use crate::map_builders::prefab_builder::PrefabBuilder;
 
 mod algorithms;
 mod utility;
 mod common;
 mod prefab_builder;
+mod waveform_collapse;
 
 use utility::distant_exit::DistantExit;
 use algorithms::bsp_dungeon::BspDungeonBuilder;
@@ -21,6 +23,9 @@ use utility::amulet_spawner::AmuletSpawner;
 use utility::room_corridor_spawner::CorridorMobSpawner;
 use utility::room_based_spawner::RoomBasedMobSpawner;
 use algorithms::voronoi_spawning::VoronoiMobSpawning;
+use waveform_collapse::WaveformCollapseBuilder;
+use algorithms::cellular_automata::CellularAutomataBuilder;
+use algorithms::rex_image::RexBuilder;
 
 pub struct BuilderMap {
     pub spawn_list : Vec<(usize, String)>,
@@ -142,6 +147,16 @@ pub fn floor_builder(new_depth: i32, width: i32, height: i32) -> BuilderChain {
     builder.with(RoomDrawer::new());
     builder.with(NearestCorridors::new());
     builder.with(RoomExploder::new());
+    // builder.start_with(PrefabBuilder::rex_level("../../resources/wfc/basic_cells1.xp"));
+    // builder.with(WaveformCollapseBuilder::new());
+    // builder.start_with(CellularAutomataBuilder::new());
+    // builder.start_with(RexBuilder::new("../../resources/wfc/basic_cells1.xp".to_string()));
+    // builder.with(WaveformCollapseBuilder::chunked(6));
+    // builder.start_with(RexBuilder::new("../../resources/wfc/wfc-demo2.xp".to_string()));
+    // builder.with(WaveformCollapseBuilder::chunked(7));
+    // builder.with(RoomDrawer::new());
+    // builder.with(NearestCorridors::new());
+    // builder.with(RoomExploder::new());
 
     let (start_x, start_y) = random_start_position();
     builder.with(AreaStartingPosition::new(start_x, start_y));
@@ -167,7 +182,7 @@ pub fn floor_builder(new_depth: i32, width: i32, height: i32) -> BuilderChain {
     
     let spawn_roll = crate::rng::roll_dice(1, 2);
     match spawn_roll {
-        1 => builder.with(RoomBasedMobSpawner::new()),
+        // 1 => builder.with(RoomBasedMobSpawner::new()),
         _ => builder.with(VoronoiMobSpawning::new())
     }
 
